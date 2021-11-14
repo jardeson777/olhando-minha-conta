@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServlet;
 
 import aplicacao.Lancamento;
 
-@WebServlet(name = "lancamentoDAO", urlPatterns = {"/lancamentoDAO"})
-public class lancamentoDAO extends HttpServlet{
+@WebServlet(name = "lancamentosDAO", urlPatterns = {"/lancamentosDAO"})
+public class lancamentosDAO extends HttpServlet{
     private Connection conexao;
     
-    public lancamentoDAO(){
+    public lancamentosDAO(){
         try{
             conexao = Conexao.criarConexao();
         } catch (SQLException e){
