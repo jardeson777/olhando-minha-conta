@@ -14,7 +14,7 @@
                 <form method="POST" action="IncluirCategoria" >
                     <div class="form-group">
                         <label for="Descrição">Descrição</label>
-                        <input type="text" class="form-control" name="descricao" required size="20" maxlength="100" placeholder="Nome da descrição">
+                        <input type="text" class="form-control" name="descricao" required size="20" maxlength="100" placeholder="Descrição da categoria">
                     </div>                  
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>

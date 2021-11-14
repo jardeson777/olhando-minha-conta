@@ -14,6 +14,9 @@
       <li class="nav-item">
         <a class="nav-link" href="FormCategoria.jsp">Criar Categoria</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="FormConta.jsp">Criar Conta</a>
+      </li>
       <!--<li class="nav-item">
         <a class="nav-link" href="MostrarDados">Mostar dados</a>
       </li>-->
