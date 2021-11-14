@@ -7,6 +7,9 @@
         <%@include file="Scripts_basicos.html"%>
     </head>
     <body>
+        
+        <%@include file="Menu.jsp" %>
+        
         <form method="get" action="administradorController">
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
