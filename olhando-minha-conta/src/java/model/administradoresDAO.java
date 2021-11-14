@@ -17,7 +17,7 @@ public class administradoresDAO extends HttpServlet{
     public administradoresDAO(){
         try{
             conexao = Conexao.criarConexao();
-        } catch (Exception e){
+        } catch (SQLException e){
             System.out.println("conexao não realizada");
             System.out.println(e);
         }
@@ -43,7 +43,7 @@ public class administradoresDAO extends HttpServlet{
                 resultado.add(administrador);
             }
             
-        } catch(Exception e){
+        } catch(SQLException e){
             System.out.println(e);
         }
         return resultado;
@@ -62,7 +62,7 @@ public class administradoresDAO extends HttpServlet{
             administrador.setCpf(resultadoBusca.getString("cpf"));
             administrador.setSenha(resultadoBusca.getString("senha"));
             
-        } catch(Exception e){
+        } catch(SQLException e){
             System.out.println(e);
         }
         
@@ -77,7 +77,7 @@ public class administradoresDAO extends HttpServlet{
             sql.executeUpdate();
             
             resultado = true;
-        } catch (Exception e){
+        } catch (SQLException e){
             System.out.println(e);
             
             resultado = false;
@@ -97,7 +97,7 @@ public class administradoresDAO extends HttpServlet{
             sql.executeUpdate();
             
             resultado = true;
-        } catch (Exception e){
+        } catch (SQLException e){
             System.out.println(e);
             
             resultado = false;
@@ -118,7 +118,7 @@ public class administradoresDAO extends HttpServlet{
             sql.executeUpdate();
             
             resultado = true;
-        } catch(Exception e){
+        } catch(SQLException e){
             System.out.println(e);
             
             resultado = false;
