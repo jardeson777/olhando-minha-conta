@@ -26,7 +26,7 @@
                     </div>
                     <div class="form-group">
                         <label for="Suspenso">Suspenso ?</label>
-                        <input type="text" class="form-control"  name="suspenso" required size="5" placeholder="Status do usuário(S/N)">
+                        <input type="text" class="form-control"  name="suspenso" maxlength="1" placeholder="Status do usuário(S/N)">
                     </div>                      
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
