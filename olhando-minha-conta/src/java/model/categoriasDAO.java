@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
-import model.Conexao;
 import aplicacao.Categoria;
 
 @WebServlet(name = "categoriasDAO", urlPatterns = {"/categoriasDAO"})
@@ -17,7 +16,7 @@ public class categoriasDAO extends HttpServlet{
     public categoriasDAO(){
         try{
             conexao = Conexao.criarConexao();
-        } catch (Exception e){
+        } catch (SQLException e){
             System.out.println("conexao não realizada");
             System.out.println(e);
         }
@@ -41,7 +40,7 @@ public class categoriasDAO extends HttpServlet{
                 resultado.add(categoria);
             }
             
-        } catch(Exception e){
+        } catch(SQLException e){
             System.out.println(e);
         }
         return resultado;
@@ -57,7 +56,7 @@ public class categoriasDAO extends HttpServlet{
             
             categoria.setId(resultadoBusca.getInt("id"));
             categoria.setDescricao(resultadoBusca.getString("descricao"));
-        } catch(Exception e){
+        } catch(SQLException e){
             System.out.println(e);
         }
         
@@ -72,7 +71,7 @@ public class categoriasDAO extends HttpServlet{
             sql.executeUpdate();
             
             resultado = true;
-        } catch (Exception e){
+        } catch (SQLException e){
             System.out.println(e);
             
             resultado = false;
@@ -90,7 +89,7 @@ public class categoriasDAO extends HttpServlet{
             sql.executeUpdate();
             
             resultado = true;
-        } catch (Exception e){
+        } catch (SQLException e){
             System.out.println(e);
             
             resultado = false;
@@ -109,7 +108,7 @@ public class categoriasDAO extends HttpServlet{
             sql.executeUpdate();
             
             resultado = true;
-        } catch(Exception e){
+        } catch(SQLException e){
             System.out.println(e);
             
             resultado = false;
