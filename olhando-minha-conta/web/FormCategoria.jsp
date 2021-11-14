@@ -1,0 +1,26 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <%//@include file="Cabecalho.html" %>
+    </head>
+    <body>
+        <div class="container mt-2">
+
+            <jsp:include page="Menu.jsp" />
+            
+            <div class="col-6 mt-5">
+                <h4>Incluir Categoria</h4>
+                <form method="POST" action="IncluirCategoria" >
+                    <div class="form-group">
+                        <label for="Descrição">Descrição</label>
+                        <input type="text" class="form-control" name="descricao" required size="20" maxlength="100" placeholder="Nome da descrição">
+                    </div>                  
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+        </div>
+
+        <%@include file="Scripts_basicos.html" %>
+    </body>
+</html>

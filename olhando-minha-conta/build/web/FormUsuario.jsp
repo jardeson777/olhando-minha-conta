@@ -11,7 +11,7 @@
             
             <div class="col-6 mt-5">
                 <h4>Incluir usuário</h4>
-                <form method="POST" action="Incluir" >
+                <form method="POST" action="IncluirUsuario" >
                     <div class="form-group">
                         <label for="Nome">Nome</label>
                         <input type="text" class="form-control" name="nome" required size="20" maxlength="100" placeholder="Nome do usuário">
