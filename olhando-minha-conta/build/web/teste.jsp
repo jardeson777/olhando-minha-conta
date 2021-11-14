@@ -10,7 +10,7 @@
     <body>
         <ul>
             <%
-                ArrayList<Administrador> listaAdministradores = (ArrayList<Administrador>) request.getAttribute("teste"); 
+                ArrayList<Administrador> listaAdministradores = (ArrayList<Administrador>) request.getAttribute("teste");
                 for(int i = 0; i < listaAdministradores.size(); i++){
                     Administrador dado = listaAdministradores.get(i);
             %>

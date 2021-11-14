@@ -47,5 +47,61 @@ public class administradoresDAO extends HttpServlet{
         return resultado;
     }
 
+    public boolean delete(int id){
+        boolean resultado;
+        try{
+            PreparedStatement sql = conexao.prepareStatement("delete from administradores where id == ?");
+            sql.setInt(1, id);
+            sql.executeUpdate();
+            
+            resultado = true;
+        } catch (Exception e){
+            System.out.println(e);
+            
+            resultado = false;
+        }
+        
+        return resultado;
+    }
     
+    public boolean insert(Administrador administrador){
+        boolean resultado;
+        
+        try{
+            PreparedStatement sql = conexao.prepareStatement("insert into administradores (nome, cpf, senha) values (?, ?, ?)");
+            sql.setString(1, administrador.getNome());
+            sql.setString(2, administrador.getCpf());
+            sql.setString(3, administrador.getSenha());
+            sql.executeUpdate();
+            
+            resultado = true;
+        } catch (Exception e){
+            System.out.println(e);
+            
+            resultado = false;
+        }
+        
+        return resultado;
+    }
+    
+    public boolean update(Administrador administrador){
+        boolean resultado;
+        
+        try{
+            PreparedStatement sql = conexao.prepareStatement("update administradores set nome = ?, cpf = ?, senha = ? where id == ?");
+            sql.setString(1, administrador.getNome());
+            sql.setString(2, administrador.getCpf());
+            sql.setString(3, administrador.getSenha());
+            sql.setInt(4, administrador.getId());
+            sql.executeUpdate();
+            
+            resultado = true;
+        } catch(Exception e){
+            System.out.println(e);
+            
+            resultado = false;
+        }
+        
+        return resultado;
+    }
 }
