@@ -14,7 +14,7 @@
                 <form method="POST" action="Login" >
                     <div class="form-group">
                         <label for="CPF">CPF</label>
-                        <input type="text" class="form-control" name="cpf" required size="14" placeholder="CPF do usuário">
+                        <input type="text" class="form-control cpf" name="cpf" required size="14" placeholder="CPF do usuário">
                     </div>
                     <div class="form-group">
                         <label for="Senha">Senha</label>
