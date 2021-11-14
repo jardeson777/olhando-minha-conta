@@ -10,10 +10,10 @@
         
         <%@include file="Menu.jsp" %>
         
-        <form method="get" action="administradorController">
+        <form method="get" action="usuarioController">
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
-        <form method="post" action="administradorController">
+        <form method="post" action="usuarioController">
             <button type="submit" class="btn btn-danger">Enviar</button>
         </form>
     </body>

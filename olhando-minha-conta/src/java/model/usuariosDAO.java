@@ -92,7 +92,7 @@ public class usuariosDAO extends HttpServlet{
         boolean resultado;
         
         try{
-            PreparedStatement sql = conexao.prepareStatement("insert into lancamento (id, nome, cpf, senha, suspenso) values (?, ?, ?, ?, ?)");
+            PreparedStatement sql = conexao.prepareStatement("insert into usuarios (id, nome, cpf, senha, suspenso) values (?, ?, ?, ?, ?)");
             sql.setInt(1, usuario.getId());
             sql.setString(2, usuario.getNome());
             sql.setString(3, usuario.getCpf());

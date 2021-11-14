@@ -50,6 +50,66 @@ public class lancamentosDAO extends HttpServlet{
         return resultado;
     }
     
+    public ArrayList<Lancamento> getListCredito(){
+        ArrayList<Lancamento> resultado = null;
+        
+        try{
+            resultado = new ArrayList<>();
+                    
+            Statement sql = conexao.createStatement();
+            ResultSet resultadoBusca = sql.executeQuery("select * from lancamento where operacao == 'C'");
+            
+            while(resultadoBusca.next()){
+                Lancamento lancamento = new Lancamento();
+                
+                lancamento.setId(resultadoBusca.getInt("id"));
+                lancamento.setIdConta(resultadoBusca.getInt("id_conta"));
+                lancamento.setIdCategoria(resultadoBusca.getInt("id_categoria"));
+                lancamento.setValor(resultadoBusca.getFloat("valor"));
+                lancamento.setOperacao(resultadoBusca.getString("operacao"));
+                lancamento.setData(resultadoBusca.getDate("data"));
+                lancamento.setDescricao(resultadoBusca.getString("descricao"));
+                
+                resultado.add(lancamento);
+            }
+            
+        } catch(SQLException e){
+            System.out.println(e);
+            resultado = null;
+        }
+        return resultado;
+    }
+    
+    public ArrayList<Lancamento> getListDebito(){
+        ArrayList<Lancamento> resultado = null;
+        
+        try{
+            resultado = new ArrayList<>();
+                    
+            Statement sql = conexao.createStatement();
+            ResultSet resultadoBusca = sql.executeQuery("select * from lancamento where operacao == 'D'");
+            
+            while(resultadoBusca.next()){
+                Lancamento lancamento = new Lancamento();
+                
+                lancamento.setId(resultadoBusca.getInt("id"));
+                lancamento.setIdConta(resultadoBusca.getInt("id_conta"));
+                lancamento.setIdCategoria(resultadoBusca.getInt("id_categoria"));
+                lancamento.setValor(resultadoBusca.getFloat("valor"));
+                lancamento.setOperacao(resultadoBusca.getString("operacao"));
+                lancamento.setData(resultadoBusca.getDate("data"));
+                lancamento.setDescricao(resultadoBusca.getString("descricao"));
+                
+                resultado.add(lancamento);
+            }
+            
+        } catch(SQLException e){
+            System.out.println(e);
+            resultado = null;
+        }
+        return resultado;
+    }
+    
     public Lancamento getDados(int id){
         Lancamento lancamento = new Lancamento();
         
