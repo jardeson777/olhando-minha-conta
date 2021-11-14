@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group">
                         <label for="Senha">Senha</label>
-                        <input type="text" class="form-control"  name="senha" required size="5" placeholder="Senha do usuário">
+                        <input type="password" class="form-control"  name="senha" required size="5" placeholder="Senha do usuário">
                     </div>
                     <div class="form-group">
                         <label for="Suspenso">Suspenso ?</label>

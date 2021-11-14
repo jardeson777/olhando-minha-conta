@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group">
                         <label for="Senha">Senha</label>
-                        <input type="text" class="form-control"  name="senha" required size="5" placeholder="Senha do administrador">
+                        <input type="password" class="form-control"  name="senha" required size="5" placeholder="Senha do administrador">
                     </div>                   
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
