@@ -2,26 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-<<<<<<< HEAD
-            <file>file:/E:/Doc%20Dan/5%20semestre/DevWeb/olhando-minha-conta/olhando-minha-conta/web/Menu.jsp</file>
-            <file>file:/E:/Doc%20Dan/5%20semestre/DevWeb/olhando-minha-conta/olhando-minha-conta/web/FormCategoria.jsp</file>
-            <file>file:/E:/Doc%20Dan/5%20semestre/DevWeb/olhando-minha-conta/olhando-minha-conta/web/FormConta.jsp</file>
-            <file>file:/E:/Doc%20Dan/5%20semestre/DevWeb/olhando-minha-conta/olhando-minha-conta/web/FormUsuario.jsp</file>
-            <file>file:/E:/Doc%20Dan/5%20semestre/DevWeb/olhando-minha-conta/olhando-minha-conta/web/FormLancamento.jsp</file>
-            <file>file:/E:/Doc%20Dan/5%20semestre/DevWeb/olhando-minha-conta/olhando-minha-conta/web/FormAdministrador.jsp</file>
-=======
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/model/administradoresDAO.java</file>
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/model/categoriasDAO.java</file>
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/controller/administradorController.java</file>
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/aplicacao/Administrador.java</file>
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/aplicacao/Categoria.java</file>
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/model/Conexao.java</file>
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/model/contaDAO.java</file>
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/aplicacao/Conta.java</file>
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/web/index.jsp</file>
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/web/teste.jsp</file>
->>>>>>> 6955b20701e35b09ae151a02220108ebdfe91413
-        </group>
+        <group/>
     </open-files>
 </project-private>
