@@ -5,15 +5,14 @@ import java.util.ArrayList;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
-import model.Conexao;
 import aplicacao.Conta;
 
 @WebServlet(name = "contaDAO", urlPatterns = {"/contaDAO"})
 
-public class contaDAO {
+public class contasDAO extends HttpServlet{
     private Connection conexao;
     
-    public contaDAO(){
+    public contasDAO(){
         try{
             conexao = Conexao.criarConexao();
         } catch (SQLException e){

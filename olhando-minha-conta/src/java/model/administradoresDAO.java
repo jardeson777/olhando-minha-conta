@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
-import model.Conexao;
 import aplicacao.Administrador;
 
 @WebServlet(name = "administradoresDAO", urlPatterns = {"/administradoresDAO"})
