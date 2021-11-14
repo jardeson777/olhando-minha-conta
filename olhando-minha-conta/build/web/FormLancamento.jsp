@@ -26,11 +26,11 @@
                     </div>
                     <div class="form-group">
                         <label for="Operacao">Operação</label>
-                        <input type="text" class="form-control"  name="operacao" required size="6" placeholder="Operação">
+                        <input type="text" class="form-control"  name="operacao" required size="1" maxlength="1" placeholder="Operação(D/C)">
                     </div>
                     <div class="form-group">
                         <label for="Data">Data</label>
-                        <input type="text" class="form-control"  name="Data" required size="10" placeholder="Data">
+                        <input type="text" class="form-control data"  name="Data" required size="10" placeholder="Data">
                     </div>
                     <div class="form-group">
                         <label for="Descrição">Descrição</label>
@@ -46,6 +46,7 @@
 	<script>
 		$(document).ready(function(){ 
 		   $('.conta_corrente').mask('0000-0', {reverse: true});
+                   $('.data').mask('00/00/0000', {reverse: true});
 		});
 	</script>        
     </body>
