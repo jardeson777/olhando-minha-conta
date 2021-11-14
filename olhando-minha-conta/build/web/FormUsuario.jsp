@@ -25,8 +25,12 @@
                         <input type="password" class="form-control"  name="senha" required size="5" placeholder="Senha do usuário">
                     </div>
                     <div class="form-group">
-                        <label for="Suspenso">Suspenso ?</label>
-                        <input type="text" class="form-control"  name="suspenso" maxlength="1" placeholder="Status do usuário(S/N)">
+                        <label for="Suspenso">Suspenso</label>
+                        <select class="form-control" name="suspenso">
+                            <option value="" selected>Status do usuário</option>
+                            <option value="S">Sim</option>
+                            <option value="N">Não</option>
+                        </select>
                     </div>                      
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
