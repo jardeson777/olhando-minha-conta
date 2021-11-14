@@ -24,9 +24,11 @@ public class administradoresDAO extends HttpServlet{
     }
     
     public ArrayList<Administrador> getList(){
-        ArrayList<Administrador> resultado = new ArrayList<>();
+        ArrayList<Administrador> resultado = null;
         
         try{
+            resultado = new ArrayList<>();
+
             Statement sql = conexao.createStatement();
             ResultSet resultadoBusca = sql.executeQuery("select * from administradores");
             
@@ -45,6 +47,26 @@ public class administradoresDAO extends HttpServlet{
             System.out.println(e);
         }
         return resultado;
+    }
+    
+    public Administrador getDados(int id){
+        Administrador administrador = null;
+        
+        try{
+            PreparedStatement sql = conexao.prepareStatement("select * from administradores where id == ?");
+            sql.setInt(1, id);
+            ResultSet resultadoBusca = sql.executeQuery();
+            
+            administrador.setId(resultadoBusca.getInt("id"));
+            administrador.setNome(resultadoBusca.getString("nome"));
+            administrador.setCpf(resultadoBusca.getString("cpf"));
+            administrador.setSenha(resultadoBusca.getString("senha"));
+            
+        } catch(Exception e){
+            System.out.println(e);
+        }
+        
+        return administrador;
     }
 
     public boolean delete(int id){
