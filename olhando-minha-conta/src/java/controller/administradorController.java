@@ -40,6 +40,9 @@ public class administradorController extends HttpServlet{
                     
                     RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
                     rd.forward(request, response);
+                }else {
+                    RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                    rd.forward(request, response);
                 }
             break;
             
@@ -56,6 +59,9 @@ public class administradorController extends HttpServlet{
                     
                     RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
                     rd.forward(request, response);
+                }else {
+                    RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                    rd.forward(request, response);
                 }
             break;
             
@@ -71,7 +77,15 @@ public class administradorController extends HttpServlet{
                     
                     usuarioDAO.gravar(usuario);
                     
-                    RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
+                    if (usuarioDAO.gravar(usuario)) {
+                        RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
+                        rd.forward(request, response);
+                    } else {
+                        RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                        rd.forward(request, response);
+                    }
+                }else {
+                    RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
                     rd.forward(request, response);
                 }
             break;

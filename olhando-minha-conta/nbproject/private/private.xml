@@ -7,16 +7,15 @@
             <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/web/FormLogin.jsp</file>
             <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/model/usuariosDAO.java</file>
             <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/controller/usuarioController.java</file>
+            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/web/FormAdministrador.jsp</file>
+            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/aplicacao/Categoria.java</file>
+            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/web/FormCategoria.jsp</file>
             <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/web/teste.jsp</file>
             <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/web/FormUsuario.jsp</file>
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/model/lancamentosDAO.java</file>
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/aplicacao/Lancamento.java</file>
+            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/model/categoriasDAO.java</file>
             <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/controller/administradorController.java</file>
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/web/Menu.jsp</file>
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/web/assets/bootstrap/bootstrap.min.css</file>
             <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/web/index.jsp</file>
             <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/controller/loginController.java</file>
-            <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/web/Scripts_basicos.html</file>
         </group>
     </open-files>
 </project-private>
