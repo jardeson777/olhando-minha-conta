@@ -8,7 +8,18 @@
         <div class="container mt-2">
 
             <jsp:include page="Menu.jsp" />
-            
+                
+            <% 
+                Object erro = session.getAttribute("erro");
+            %>
+            <%if (erro == "sim"){%>
+            <div class="col-lg-8 mt-5">
+                <div class="alert alert-danger" role="alert">
+                    <h5>Não foi possível realizar o login. Tente novamente!</h5>
+                </div>
+            </div>
+            <%}%>
+
             <div class="col-lg-6 mt-5">
                 <h4>Login</h4>
                 <form method="POST" action="loginController" >
@@ -24,6 +35,10 @@
                 </form>
             </div>
         </div>
+            
+        <%
+            session.setAttribute("erro", "nao");
+        %>
 
         <%@include file="Scripts_basicos.html" %>
         

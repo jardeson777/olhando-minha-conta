@@ -13,6 +13,7 @@ import model.administradoresDAO;
 import model.usuariosDAO;
 import aplicacao.Administrador;
 import aplicacao.Usuario;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "loginController", urlPatterns = {"/loginController"})
 
@@ -22,7 +23,8 @@ public class loginController extends HttpServlet{
         RequestDispatcher rd = request.getRequestDispatcher("/FormLogin.jsp");
         rd.forward(request, response);
     }
-    
+
+        
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
@@ -36,11 +38,17 @@ public class loginController extends HttpServlet{
                 usuariosDAO usuarioDAO = new usuariosDAO();
                 boolean loginUsuario = usuarioDAO.getLogin(cpf, senha);
                 
-                if(loginAdministrador || loginUsuario){
-                    RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
+                if(loginAdministrador){
+                    RequestDispatcher rd = request.getRequestDispatcher("/administradorLogado.jsp");
+                    rd.forward(request, response);
+                } else if(loginUsuario){
+                    RequestDispatcher rd = request.getRequestDispatcher("/usuarioLogado.jsp");
                     rd.forward(request, response);
                 } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                    HttpSession session = request.getSession();
+                    session.setAttribute("erro", "sim");
+                    
+                    RequestDispatcher rd = request.getRequestDispatcher("/FormLogin.jsp");
                     rd.forward(request, response);
                 }
             }
