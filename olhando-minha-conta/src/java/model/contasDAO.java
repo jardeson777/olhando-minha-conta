@@ -93,6 +93,27 @@ public class contasDAO extends HttpServlet{
         boolean resultado;
         
         try{
+            String sql = "INSERT INTO contas (id_usuario, nome, banco, agencia, conta_corrente) VALUES (?,?,?,?,?)";
+            
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setInt(1, conta.getIdUsuario());
+            ps.setString(2, conta.getNomeConta());
+            ps.setString(3, conta.getBanco());
+            ps.setString(4, conta.getAgencia());
+            ps.setString(5, conta.getContaCorrente());
+            
+            ps.execute();
+            
+            resultado = true;
+        } catch (SQLException e){
+            System.out.println(e);
+            
+            resultado = false;
+        }
+        
+        return resultado;        
+        
+        /*try{
             PreparedStatement sql = conexao.prepareStatement("insert into conta (id_usuario, nome_conta, banco, agencia, conta_corrente) values (?, ?, ?, ?, ?)");
             sql.setInt(1, conta.getIdUsuario());
             sql.setString(2, conta.getNomeConta());
@@ -108,7 +129,7 @@ public class contasDAO extends HttpServlet{
             resultado = false;
         }
         
-        return resultado;
+        return resultado;*/
     }
     
     public boolean update(Conta conta){
