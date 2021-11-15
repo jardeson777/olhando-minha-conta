@@ -11,7 +11,7 @@
             
             <div class="col-lg-6 mt-5">
                 <h4>Login</h4>
-                <form method="POST" action="Login" >
+                <form method="POST" action="loginController" >
                     <div class="form-group">
                         <label for="CPF">CPF</label>
                         <input type="text" class="form-control cpf" name="cpf" required size="14" placeholder="CPF do usuário">
