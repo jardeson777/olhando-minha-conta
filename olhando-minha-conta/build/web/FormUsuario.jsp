@@ -11,7 +11,8 @@
             
             <div class="col-lg-6 mt-5">
                 <h4>Incluir usuário</h4>
-                <form method="POST" action="usuarioController" >
+                <form method="POST" action="administradorController" >
+                    <input name="action" hidden value="CriarUsuario"/>
                     <div class="form-group">
                         <label for="Nome">Nome</label>
                         <input type="text" class="form-control" name="nome" required size="20" maxlength="100" placeholder="Nome do usuário">

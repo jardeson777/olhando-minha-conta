@@ -29,66 +29,80 @@ public class administradorController extends HttpServlet{
         
         String action = request.getParameter("action");
         
-        switch(action){
-            case "CriaCategoria":
-                Categoria categoria = new Categoria();
-                categoriasDAO categoriaDAO = new categoriasDAO();
-                
-                if(!request.getParameter("descricao").isEmpty()){
-                    categoria.setDescricao(request.getParameter("descricao"));
-                    categoriaDAO.insert(categoria);
-                    
-                    RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
-                    rd.forward(request, response);
-                }else {
-                    RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
-                    rd.forward(request, response);
-                }
-            break;
-            
-            case "CriarAdministrador":
-                Administrador administrador = new Administrador();
-                administradoresDAO administradorDAO = new administradoresDAO();
-                
-                if(!request.getParameter("nome").isEmpty() && request.getParameter("cpf").length() == 14 && !request.getParameter("senha").isEmpty()){
-                    administrador.setNome(request.getParameter("nome"));
-                    administrador.setSenha(request.getParameter("senha"));
-                    administrador.setCpf(request.getParameter("cpf"));
-                    
-                    administradorDAO.insert(administrador);
-                    
-                    RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
-                    rd.forward(request, response);
-                }else {
-                    RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
-                    rd.forward(request, response);
-                }
-            break;
-            
-            case "CriarUsuario":
-                Usuario usuario = new Usuario();
-                usuariosDAO usuarioDAO = new usuariosDAO();
-                
-                if(!request.getParameter("nome").isEmpty() && request.getParameter("cpf").length() == 14 && !request.getParameter("senha").isEmpty() && request.getParameter("suspenso").isEmpty()){
-                    usuario.setNome(request.getParameter("nome"));
-                    usuario.setCpf(request.getParameter("cpf"));
-                    usuario.setSenha(request.getParameter("senha"));
-                    usuario.setSuspenso(request.getParameter("suspenso"));
-                    
-                    usuarioDAO.gravar(usuario);
-                    
-                    if (usuarioDAO.gravar(usuario)) {
+        try{
+            switch(action){
+                case "CriaCategoria":
+                    Categoria categoria = new Categoria();
+                    categoriasDAO categoriaDAO = new categoriasDAO();
+
+                    if(!request.getParameter("descricao").isEmpty()){
+                        categoria.setDescricao(request.getParameter("descricao"));
+                        categoriaDAO.insert(categoria);
+
                         RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
                         rd.forward(request, response);
-                    } else {
+                    }else {
                         RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
                         rd.forward(request, response);
                     }
-                }else {
-                    RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
-                    rd.forward(request, response);
-                }
-            break;
+                break;
+
+                case "CriarAdministrador":
+                    Administrador administrador = new Administrador();
+                    administradoresDAO administradorDAO = new administradoresDAO();
+
+                    if(!request.getParameter("nome").isEmpty() && request.getParameter("cpf").length() == 14 && !request.getParameter("senha").isEmpty()){
+                        administrador.setNome(request.getParameter("nome"));
+                        administrador.setSenha(request.getParameter("senha"));
+                        administrador.setCpf(request.getParameter("cpf"));
+
+                        administradorDAO.insert(administrador);
+
+                        RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
+                        rd.forward(request, response);
+                    }else {
+                        RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                        rd.forward(request, response);
+                    }
+                break;
+
+                case "CriarUsuario":
+                    String nome = request.getParameter("nome");
+                    String cpf = request.getParameter("cpf");
+                    String senha = request.getParameter("senha");
+                    String suspenso = request.getParameter("suspenso");
+
+                    if ((!nome.isEmpty()) && (!cpf.isEmpty()) && (!senha.isEmpty()) && (!suspenso.isEmpty())) {
+
+                        Usuario usuario = new Usuario();
+
+                        usuario.setId(0);
+                        usuario.setNome(nome);
+                        usuario.setSenha(senha);
+                        usuario.setCpf(cpf);
+                        usuario.setSuspenso(suspenso);
+
+                        usuariosDAO usuariodao = new usuariosDAO();
+
+                        if (usuariodao.gravar(usuario)) {
+                            RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
+                            rd.forward(request, response);
+                        } else {
+                            RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                            rd.forward(request, response);
+                        }
+
+                    } 
+                    else {
+                        RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                        rd.forward(request, response);
+                    }
+                break;
+            }
+        } catch (Exception e){
+            System.out.println(e);
+            RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+            rd.forward(request, response);
         }
     }
 }
