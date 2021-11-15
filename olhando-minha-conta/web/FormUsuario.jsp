@@ -9,9 +9,9 @@
 
             <jsp:include page="Menu.jsp" />
             
-            <div class="col-6 mt-5">
+            <div class="col-lg-6 mt-5">
                 <h4>Incluir usuário</h4>
-                <form method="POST" action="IncluirUsuario" >
+                <form method="POST" action="usuarioController" >
                     <div class="form-group">
                         <label for="Nome">Nome</label>
                         <input type="text" class="form-control" name="nome" required size="20" maxlength="100" placeholder="Nome do usuário">

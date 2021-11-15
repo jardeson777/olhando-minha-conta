@@ -9,7 +9,7 @@
 
             <jsp:include page="Menu.jsp" />
             
-            <div class="col-6 mt-5">
+            <div class="col-lg-6 mt-5">
                 <h4>Incluir Lançamento</h4>
                 <form method="POST" action="IncluirLancamento" >
                     <div class="form-group">

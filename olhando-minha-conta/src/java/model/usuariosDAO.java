@@ -88,42 +88,30 @@ public class usuariosDAO extends HttpServlet{
         return resultado;
     }
     
-    public boolean insert(Usuario usuario){
+    public boolean gravar(Usuario usuario){
         boolean resultado;
         
         try{
-            PreparedStatement sql = conexao.prepareStatement("insert into usuarios (id, nome, cpf, senha, suspenso) values (?, ?, ?, ?, ?)");
-            sql.setInt(1, usuario.getId());
-            sql.setString(2, usuario.getNome());
-            sql.setString(3, usuario.getCpf());
-            sql.setString(4, usuario.getSenha());
-            sql.setString(5, usuario.getSuspenso());
-            sql.executeUpdate();
+            String sql;
+            if ( usuario.getId() == 0 ) {
+                sql = "INSERT INTO usuarios (nome, senha, cpf, suspenso) VALUES (?,?,?,?)";
+            } else {
+                sql = "UPDATE usuarios SET nome=?, senha=?, cpf=?, suspenso=? WHERE id=?";
+            }
+            
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setString(1, usuario.getNome());
+            ps.setString(2, usuario.getSenha());
+            ps.setString(3, usuario.getCpf());
+            ps.setString(4, usuario.getSuspenso());
+            
+            if ( usuario.getId()> 0 )
+                ps.setInt(5, usuario.getId());
+            
+            ps.execute();
             
             resultado = true;
         } catch (SQLException e){
-            System.out.println(e);
-            
-            resultado = false;
-        }
-        
-        return resultado;
-    }
-    
-    public boolean update(Usuario usuario){
-        boolean resultado;
-        
-        try{
-            PreparedStatement sql = conexao.prepareStatement("update conta set id = ?, nome = ?, cpf = ?, senha = ?, suspenso = ? where id == ?");
-            sql.setInt(1, usuario.getId());
-            sql.setString(2, usuario.getNome());
-            sql.setString(3, usuario.getCpf());
-            sql.setString(4, usuario.getSenha());
-            sql.setString(5, usuario.getSuspenso());
-            sql.executeUpdate();
-            
-            resultado = true;
-        } catch(SQLException e){
             System.out.println(e);
             
             resultado = false;

@@ -9,7 +9,7 @@
 
             <jsp:include page="Menu.jsp" />
             
-            <div class="col-6 mt-5">
+            <div class="col-lg-6 mt-5">
                 <h4>Incluir Administrador</h4>
                 <form method="POST" action="IncluirAdministrador" >
                     <div class="form-group">
