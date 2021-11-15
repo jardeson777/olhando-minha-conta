@@ -11,7 +11,7 @@
             
             <div class="col-6 mt-5">
                 <h4>Login</h4>
-                <form method="POST" action="Login" >
+                <form method="POST" action="loginController" >
                     <div class="form-group">
                         <label for="Nome">Nome</label>
                         <input type="text" class="form-control" name="nome" required size="20" maxlength="100" placeholder="Nome do usuário">
