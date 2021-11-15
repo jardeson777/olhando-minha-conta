@@ -110,7 +110,7 @@
         h2{
             color: #fff;
             width: 100%;
-            max-width: 830px;
+            max-width: 400px;
             margin: 0 auto;
             font-size: max(150%, 25px);
         }

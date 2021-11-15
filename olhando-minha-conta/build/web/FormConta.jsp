@@ -13,8 +13,7 @@
                 <h4>Incluir Conta</h4>
                 <form method="POST" action="IncluirConta" >
                     <div class="form-group">
-                        <label for="Usuário">Usuário</label>
-                        <input type="text" class="form-control" name="id_usuario" required size="11" maxlength="100" placeholder="ID do Usuário">
+                        <input type="hidden" class="form-control" name="id_usuario" required size="11" maxlength="100" placeholder="ID do Usuário">
                     </div>
                     <div class="form-group">
                         <label for="Nome">Nome da Conta</label>

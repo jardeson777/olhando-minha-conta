@@ -11,7 +11,7 @@
 
             <div class="col-8 mt-5">
 
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-danger" role="alert">
                     <h5>Digite os Dados!</h5>
                 </div>
 
