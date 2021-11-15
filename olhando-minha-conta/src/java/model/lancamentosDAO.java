@@ -156,6 +156,7 @@ public class lancamentosDAO extends HttpServlet{
         
         try{
             PreparedStatement sql = conexao.prepareStatement("insert into lancamento (id, id_conta, id_categoria, valor, operacao, data, descricao) values (?, ?, ?, ?, ?, ?, ?)");
+            
             sql.setInt(1, lancamento.getId());
             sql.setInt(2, lancamento.getIdConta());
             sql.setInt(3, lancamento.getIdCategoria());

@@ -34,7 +34,7 @@ public class contasDAO extends HttpServlet{
                 Conta conta = new Conta();
                 
                 conta.setId(resultadoBusca.getInt("id"));
-                conta.setIdUsuario(resultadoBusca.getInt("id_usuario"));
+                conta.setIdUsuario(resultadoBusca.getString("id_usuario"));
                 conta.setNomeConta(resultadoBusca.getString("nome_conta"));
                 conta.setBanco(resultadoBusca.getString("busca"));
                 conta.setAgencia(resultadoBusca.getString("agencia"));
@@ -49,6 +49,28 @@ public class contasDAO extends HttpServlet{
         return resultado;
     }
     
+    public boolean searchData(Conta conta){
+        boolean resultado = false;
+        
+        try{
+            PreparedStatement sql = conexao.prepareStatement("select * from conta where id_usuario = ? and nome_conta = ? and banco = ? and agencia = ? and conta_corrente = ?");
+            sql.setString(1, conta.getIdUsuario());
+            sql.setString(2, conta.getNomeConta());
+            sql.setString(3, conta.getBanco());
+            sql.setString(4, conta.getAgencia());
+            sql.setString(5, conta.getContaCorrente());
+            ResultSet resultadoBusca = sql.executeQuery();
+            
+            if(resultadoBusca.next()){
+                resultado = true;
+            }
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+        
+        return resultado;
+    }
+    
     public Conta getDados(int id){
         Conta conta = new Conta();
         
@@ -58,7 +80,7 @@ public class contasDAO extends HttpServlet{
             ResultSet resultadoBusca = sql.executeQuery();
             
             conta.setId(resultadoBusca.getInt("id"));
-            conta.setIdUsuario(resultadoBusca.getInt("id_usuario"));
+            conta.setIdUsuario(resultadoBusca.getString("id_usuario"));
             conta.setNomeConta(resultadoBusca.getString("nome_conta"));
             conta.setBanco(resultadoBusca.getString("banco"));
             conta.setAgencia(resultadoBusca.getString("agencia"));
@@ -93,16 +115,16 @@ public class contasDAO extends HttpServlet{
         boolean resultado;
         
         try{
-            String sql = "INSERT INTO contas (id_usuario, nome, banco, agencia, conta_corrente) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO contas (id_usuario, nome_conta, banco, agencia, conta_corrente) VALUES (?,?,?,?,?)";
             
             PreparedStatement ps = conexao.prepareStatement(sql);
-            ps.setInt(1, conta.getIdUsuario());
+            ps.setString(1, conta.getIdUsuario());
             ps.setString(2, conta.getNomeConta());
             ps.setString(3, conta.getBanco());
             ps.setString(4, conta.getAgencia());
             ps.setString(5, conta.getContaCorrente());
             
-            ps.execute();
+            ps.executeUpdate();
             
             resultado = true;
         } catch (SQLException e){
@@ -112,24 +134,6 @@ public class contasDAO extends HttpServlet{
         }
         
         return resultado;        
-        
-        /*try{
-            PreparedStatement sql = conexao.prepareStatement("insert into conta (id_usuario, nome_conta, banco, agencia, conta_corrente) values (?, ?, ?, ?, ?)");
-            sql.setInt(1, conta.getIdUsuario());
-            sql.setString(2, conta.getNomeConta());
-            sql.setString(3, conta.getBanco());
-            sql.setString(4, conta.getAgencia());
-            sql.setString(5, conta.getContaCorrente());
-            sql.executeUpdate();
-            
-            resultado = true;
-        } catch (SQLException e){
-            System.out.println(e);
-            
-            resultado = false;
-        }
-        
-        return resultado;*/
     }
     
     public boolean update(Conta conta){
@@ -138,7 +142,7 @@ public class contasDAO extends HttpServlet{
         try{
             PreparedStatement sql = conexao.prepareStatement("update conta set id = ?, id_usuario = ?, nome_conta = ?, banco = ?, agencia = ?, conta_corrente = ? where id == ?");
             sql.setInt(1, conta.getId());
-            sql.setInt(2, conta.getIdUsuario());
+            sql.setString(2, conta.getIdUsuario());
             sql.setString(3, conta.getNomeConta());
             sql.setString(4, conta.getBanco());
             sql.setString(5, conta.getAgencia());

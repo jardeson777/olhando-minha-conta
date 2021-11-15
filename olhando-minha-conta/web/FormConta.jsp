@@ -1,3 +1,6 @@
+<%@page import="model.usuariosDAO"%>
+<%@page import="aplicacao.Usuario"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +15,23 @@
             <div class="col-lg-6 mt-5">
                 <h4>Incluir Conta</h4>
                 <form method="POST" action="usuarioController" >
+                    <div class="form-group">
+                        <label>Usuario</label>
+                        <select name="id_usuario" class="form-control">
+                            <option value="">Selecione o usuário que vai receber essa conta</option>
+                            <%
+                                ArrayList<Usuario> usuarios = new ArrayList();
+                                usuariosDAO usuarioDAO = new usuariosDAO();
+
+                                usuarios = usuarioDAO.getList();
+
+                                for(int i = 0; i < usuarios.size(); i++){
+                                    Usuario usuario = usuarios.get(i);
+                            %>
+                                <option value="<%out.println(usuario.getId());%>"><%out.println(usuario.getNome());%></option>
+                            <%}%>
+                        </select>
+                    </div>
                     <input hidden value="CriarConta" name="action"/>
                     <div class="form-group">
                         <input type="hidden" class="form-control" name="id_usuario" required size="11" maxlength="100" placeholder="ID do Usuário">

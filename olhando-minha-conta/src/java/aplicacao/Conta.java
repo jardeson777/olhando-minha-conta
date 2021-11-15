@@ -2,7 +2,7 @@ package aplicacao;
 
 public class Conta {
     private int id;
-    private int id_usuario;
+    private String id_usuario;
     private String nome_conta;
     private String banco;
     private String agencia;
@@ -12,7 +12,7 @@ public class Conta {
         this.id = id;
     }
     
-    public void setIdUsuario(int id_usuario){
+    public void setIdUsuario(String id_usuario){
         this.id_usuario = id_usuario;
     }
     
@@ -25,7 +25,7 @@ public class Conta {
     }
     
     public void setAgencia(String agencia){
-        this.banco = agencia;
+        this.agencia = agencia;
     }
     
     public void setContaCorrente(String conta_corrente){
@@ -36,7 +36,7 @@ public class Conta {
         return this.id;
     }
     
-    public int getIdUsuario(){
+    public String getIdUsuario(){
         return this.id_usuario;
     }
     
