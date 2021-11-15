@@ -2,9 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-        <group/>
-=======
         <group>
             <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/model/administradoresDAO.java</file>
             <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/web/FormLogin.jsp</file>
@@ -21,6 +18,5 @@
             <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/src/java/controller/loginController.java</file>
             <file>file:/C:/wamp64/www/Projetos/teste/olhando-minha-conta/olhando-minha-conta/web/Scripts_basicos.html</file>
         </group>
->>>>>>> d9bb00af74ee54f39ee8d48522e7e2711d4648cc
     </open-files>
 </project-private>

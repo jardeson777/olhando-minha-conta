@@ -22,22 +22,19 @@ public class administradoresDAO extends HttpServlet{
         }
     }
     
-    public boolean getLogin(String cpf){
+    public boolean getLogin(String cpf, String senha){
         boolean resultado = false;
-        Administrador administrador;
-        
         try{
-            PreparedStatement sql = conexao.prepareStatement("select cpf from administradores where cpf == ?");
+            PreparedStatement sql = conexao.prepareStatement("select * from administradores where cpf = ? and senha = ?");
             sql.setString(1, cpf);
+            sql.setString(2, senha);
             ResultSet resultadoBusca = sql.executeQuery();
-            
+
             if(resultadoBusca.next()){
                 resultado = true;
             }
-            
         } catch(SQLException e){
             System.out.println(e);
-            resultado = false;
         }
         
         return resultado;

@@ -49,6 +49,24 @@ public class usuariosDAO extends HttpServlet{
         return resultado;
     }
     
+    public boolean getLogin(String cpf, String senha){
+        boolean resultado = false;
+        try{
+            PreparedStatement sql = conexao.prepareStatement("select * from usuarios where cpf = ? and senha = ?");
+            sql.setString(1, cpf);
+            sql.setString(2, senha);
+            ResultSet resultadoBusca = sql.executeQuery();
+
+            if(resultadoBusca.next()){
+                resultado = true;
+            }
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+        
+        return resultado;
+    }
+    
     public Usuario getDados(int id){
         Usuario usuario = new Usuario();
         

@@ -30,11 +30,18 @@ public class loginController extends HttpServlet{
             String senha = request.getParameter("senha");
             
             if(!cpf.isEmpty() && cpf.length() == 14 & !senha.isEmpty()){
-                administradoresDAO administradoresDAO = new administradoresDAO();
-                boolean loginAdministrador = administradoresDAO.getLogin(cpf);
+                administradoresDAO administradorDAO = new administradoresDAO();
+                boolean loginAdministrador = administradorDAO.getLogin(cpf, senha);
                 
-                if(loginAdministrador){
-                    RequestDispatcher rd = request.getRequestDispatcher("/FormUsuario.jsp");
+                usuariosDAO usuarioDAO = new usuariosDAO();
+                boolean loginUsuario = usuarioDAO.getLogin(cpf, senha);
+                
+                if(loginAdministrador || loginUsuario){
+                    RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
+                    rd.forward(request, response);
+                } else {
+                    RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                    rd.forward(request, response);
                 }
             }
         }catch(Exception e){
