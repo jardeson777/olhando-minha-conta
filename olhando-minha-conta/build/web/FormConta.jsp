@@ -11,7 +11,8 @@
             
             <div class="col-lg-6 mt-5">
                 <h4>Incluir Conta</h4>
-                <form method="POST" action="IncluirConta" >
+                <form method="POST" action="usuarioController" >
+                    <input hidden value="CriarConta" name="action"/>
                     <div class="form-group">
                         <input type="hidden" class="form-control" name="id_usuario" required size="11" maxlength="100" placeholder="ID do Usuário">
                     </div>

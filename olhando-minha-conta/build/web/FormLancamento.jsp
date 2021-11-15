@@ -11,7 +11,8 @@
             
             <div class="col-lg-6 mt-5">
                 <h4>Incluir Lançamento</h4>
-                <form method="POST" action="IncluirLancamento" >
+                <form method="POST" action="usuarioController" >
+                    <input hidden value="CriarLancamento" name="action"/>
                     <div class="form-group">
                         <label for="ID_Conta">ID da Conta</label>
                         <input type="text" class="form-control" name="id_conta" required size="11" maxlength="100" placeholder="ID da conta">
