@@ -13,8 +13,8 @@
                 <h4>Login</h4>
                 <form method="POST" action="loginController" >
                     <div class="form-group">
-                        <label for="Nome">Nome</label>
-                        <input type="text" class="form-control" name="nome" required size="20" maxlength="100" placeholder="Nome do usuário">
+                        <label for="CPF">CPF</label>
+                        <input type="text" class="form-control cpf" name="cpf" required size="14" placeholder="CPF do usuário">
                     </div>
                     <div class="form-group">
                         <label for="Senha">Senha</label>
@@ -25,6 +25,12 @@
             </div>
         </div>
 
-        <%@include file="Scripts_basicos.html" %>     
+        <%@include file="Scripts_basicos.html" %>
+        
+        <script>
+		$(document).ready(function(){ 
+		   $('.cpf').mask('000.000.000-00', {reverse: true});
+		});
+	</script>
     </body>
 </html>
