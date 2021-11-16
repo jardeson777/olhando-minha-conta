@@ -57,7 +57,30 @@ public class usuarioController extends HttpServlet{
             break;
             
             case "CriarLancamento":
-                //
+                    Lancamento lancamento = new Lancamento();
+                    lancamentosDAO lancamentodao = new lancamentosDAO();
+
+                    if(!request.getParameter("id_conta").isEmpty() && !request.getParameter("id_categoria").isEmpty() && !request.getParameter("valor").isEmpty() && request.getParameter("operacao").length() == 1 && request.getParameter("data").length() == 10  && !request.getParameter("descricao").isEmpty()){                     
+                        
+                        lancamento.setIdConta(request.getParameter("id_conta"));
+                        lancamento.setIdCategoria(request.getParameter("id_categoria"));
+                        lancamento.setValor(request.getParameter("valor"));
+                        lancamento.setOperacao(request.getParameter("operacao"));
+                        lancamento.setData(request.getParameter("data"));
+                        lancamento.setDescricao(request.getParameter("descricao"));
+                        
+                        if (lancamentodao.insert(lancamento)) {
+                            RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
+                            rd.forward(request, response);
+                        } else {
+                            RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                            rd.forward(request, response);
+                        }
+
+                    }else {
+                        RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                        rd.forward(request, response);
+                    }
             break;
         }
 

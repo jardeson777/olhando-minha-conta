@@ -3,12 +3,12 @@ package aplicacao;
 import java.util.Date;
 
 public class Lancamento {
-    private String id;
+    private int id;
     private String id_conta;
     private String id_categoria;
-    private float valor;
+    private String valor;
     private String operacao;
-    private Date data;
+    private String data;
     private String descricao;
     
     public String getId(){
@@ -23,7 +23,7 @@ public class Lancamento {
         return this.id_categoria;
     }
     
-    public float getValor(){
+    public String getValor(){
         return this.valor;
     }
     
@@ -31,7 +31,7 @@ public class Lancamento {
         return this.operacao;
     }
     
-    public Date getData(){
+    public String getData(){
         return this.data;
     }
     
@@ -51,7 +51,7 @@ public class Lancamento {
         this.id_categoria = id_categoria;
     }
     
-    public void setValor(float valor){
+    public void setValor(String valor){
         this.valor = valor;
     }
     
@@ -59,7 +59,7 @@ public class Lancamento {
         this.operacao = operacao;
     }
     
-    public void setData(Date data){
+    public void setData(String data){
         this.data = data;
     }
     
