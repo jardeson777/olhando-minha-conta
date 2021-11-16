@@ -1,3 +1,8 @@
+<%@page import="model.categoriasDAO"%>
+<%@page import="aplicacao.Categoria"%>
+<%@page import="model.contasDAO"%>
+<%@page import="aplicacao.Conta"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,12 +19,39 @@
                 <form method="POST" action="usuarioController" >
                     <input hidden value="CriarLancamento" name="action"/>
                     <div class="form-group">
-                        <label for="ID_Conta">ID da Conta</label>
-                        <input type="text" class="form-control" name="id_conta" required size="11" maxlength="100" placeholder="ID da conta">
+                        <label for="ID_Conta">Conta</label>
+                        
+                        <select class="form-control" name="id_conta">
+                            <option value="" selected>Selecione a conta</option>
+                            <%
+                                ArrayList<Conta> contas = new ArrayList();
+                                contasDAO contaDAO = new contasDAO();
+                                
+                                contas = contaDAO.getList();
+                                
+                                for(int i = 0; i < contas.size(); i++){
+                                    Conta conta = contas.get(i);
+                            %>
+                            <option value="<%out.println(conta.getId());%>"><%out.println(conta.getId());%> | <%out.println(conta.getNomeConta());%> | <%out.println(conta.getContaCorrente());%></option>
+                            <%}%>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="ID_Categoria">ID da Categoria</label>
-                        <input type="text" class="form-control" name="id_categoria" required size="11" maxlength="100" placeholder="ID da categoria">
+                        <label for="ID_Categoria">Categoria</label>
+                        <select class="form-control" name="id_categoria">
+                            <option value="" selected>Selecione a categoria</option>
+                            <%
+                                ArrayList<Categoria> categorias = new ArrayList();
+                                categoriasDAO categoriaDAO = new categoriasDAO();
+                                
+                                categorias = categoriaDAO.getList();
+                                
+                                for(int i = 0; i < categorias.size(); i++){
+                                    Categoria categoria = categorias.get(i);
+                            %>
+                            <option value="<%out.println(categoria.getId());%>"><%out.println(categoria.getId() + " | " + categoria.getDescricao());%></option>
+                            <%}%>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="Valor">Valor</label>
@@ -27,7 +59,11 @@
                     </div>
                     <div class="form-group">
                         <label for="Operacao">Operação</label>
-                        <input type="text" class="form-control"  name="operacao" required size="1" maxlength="1" placeholder="Operação(D/C)">
+                        <select class="form-control" name="operacao">
+                            <option value="" selected>Selecione uma operação</option>
+                            <option value="C">Crédito</option>
+                            <option value="D">Débito</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="Data">Data</label>

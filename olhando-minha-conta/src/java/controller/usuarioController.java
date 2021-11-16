@@ -29,31 +29,31 @@ public class usuarioController extends HttpServlet{
         
         switch(action){
             case "CriarConta":
-                    Conta conta = new Conta();
-                    contasDAO contaDAO = new contasDAO();
+                Conta conta = new Conta();
+                contasDAO contaDAO = new contasDAO();
 
-                    if(!request.getParameter("id_usuario").isEmpty() && !request.getParameter("nome").isEmpty() && request.getParameter("banco").length() == 3 && request.getParameter("agencia").length() == 6  && request.getParameter("conta_corrente").length() == 6){
-                        String idUsuario = request.getParameter("id_usuario");
-                        
-                        conta.setIdUsuario(idUsuario);
-                        conta.setNomeConta(request.getParameter("nome"));
-                        conta.setBanco(request.getParameter("banco"));
-                        conta.setAgencia(request.getParameter("agencia"));
-                        conta.setContaCorrente(request.getParameter("conta_corrente"));
-                        
-                        boolean existeConta = contaDAO.searchData(conta);
-                        
-                        if(!existeConta){
-                            contaDAO.insert(conta);
-                            
-                            RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
-                            rd.forward(request, response);
-                        }
+                if(!request.getParameter("id_usuario").isEmpty() && !request.getParameter("nome").isEmpty() && request.getParameter("banco").length() == 3 && request.getParameter("agencia").length() == 6  && request.getParameter("conta_corrente").length() == 6){
+                    String idUsuario = request.getParameter("id_usuario");
 
-                    }else {
-                        RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                    conta.setIdUsuario(idUsuario);
+                    conta.setNomeConta(request.getParameter("nome"));
+                    conta.setBanco(request.getParameter("banco"));
+                    conta.setAgencia(request.getParameter("agencia"));
+                    conta.setContaCorrente(request.getParameter("conta_corrente"));
+
+                    boolean existeConta = contaDAO.searchData(conta);
+
+                    if(!existeConta){
+                        contaDAO.insert(conta);
+
+                        RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
                         rd.forward(request, response);
                     }
+
+                }else {
+                    RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                    rd.forward(request, response);
+                }
             break;
             
             case "CriarLancamento":

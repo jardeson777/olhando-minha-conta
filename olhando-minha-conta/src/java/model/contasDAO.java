@@ -28,7 +28,7 @@ public class contasDAO extends HttpServlet{
             resultado = new ArrayList<>();
                     
             Statement sql = conexao.createStatement();
-            ResultSet resultadoBusca = sql.executeQuery("select * from conta");
+            ResultSet resultadoBusca = sql.executeQuery("select * from contas");
             
             while(resultadoBusca.next()){
                 Conta conta = new Conta();
@@ -36,7 +36,7 @@ public class contasDAO extends HttpServlet{
                 conta.setId(resultadoBusca.getInt("id"));
                 conta.setIdUsuario(resultadoBusca.getString("id_usuario"));
                 conta.setNomeConta(resultadoBusca.getString("nome_conta"));
-                conta.setBanco(resultadoBusca.getString("busca"));
+                conta.setBanco(resultadoBusca.getString("banco"));
                 conta.setAgencia(resultadoBusca.getString("agencia"));
                 conta.setContaCorrente(resultadoBusca.getString("conta_corrente"));
                 

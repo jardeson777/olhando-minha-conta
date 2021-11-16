@@ -3,23 +3,23 @@ package aplicacao;
 import java.util.Date;
 
 public class Lancamento {
-    private int id;
-    private int id_conta;
-    private int id_categoria;
+    private String id;
+    private String id_conta;
+    private String id_categoria;
     private float valor;
     private String operacao;
     private Date data;
     private String descricao;
     
-    public int getId(){
+    public String getId(){
         return this.id;
     }
     
-    public int getIdConta(){
+    public String getIdConta(){
         return this.id_conta;
     }
     
-    public int getIdCategoria(){
+    public String getIdCategoria(){
         return this.id_categoria;
     }
     
@@ -39,15 +39,15 @@ public class Lancamento {
         return this.descricao;
     }
     
-    public void setId(int id){
+    public void setId(String id){
         this.id = id;
     }
     
-    public void setIdConta(int id_conta){
+    public void setIdConta(String id_conta){
         this.id_conta = id_conta;
     }
     
-    public void setIdCategoria(int id_categoria){
+    public void setIdCategoria(String id_categoria){
         this.id_categoria = id_categoria;
     }
     
