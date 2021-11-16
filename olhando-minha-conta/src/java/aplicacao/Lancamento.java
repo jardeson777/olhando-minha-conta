@@ -4,26 +4,26 @@ import java.util.Date;
 
 public class Lancamento {
     private int id;
-    private int id_conta;
-    private int id_categoria;
-    private float valor;
+    private String id_conta;
+    private String id_categoria;
+    private String valor;
     private String operacao;
-    private Date data;
+    private String data;
     private String descricao;
     
     public int getId(){
         return this.id;
     }
     
-    public int getIdConta(){
+    public String getIdConta(){
         return this.id_conta;
     }
     
-    public int getIdCategoria(){
+    public String getIdCategoria(){
         return this.id_categoria;
     }
     
-    public float getValor(){
+    public String getValor(){
         return this.valor;
     }
     
@@ -31,7 +31,7 @@ public class Lancamento {
         return this.operacao;
     }
     
-    public Date getData(){
+    public String getData(){
         return this.data;
     }
     
@@ -43,15 +43,15 @@ public class Lancamento {
         this.id = id;
     }
     
-    public void setIdConta(int id_conta){
+    public void setIdConta(String id_conta){
         this.id_conta = id_conta;
     }
     
-    public void setIdCategoria(int id_categoria){
+    public void setIdCategoria(String id_categoria){
         this.id_categoria = id_categoria;
     }
     
-    public void setValor(float valor){
+    public void setValor(String valor){
         this.valor = valor;
     }
     
@@ -59,7 +59,7 @@ public class Lancamento {
         this.operacao = operacao;
     }
     
-    public void setData(Date data){
+    public void setData(String data){
         this.data = data;
     }
     

@@ -33,11 +33,11 @@ public class lancamentosDAO extends HttpServlet{
                 Lancamento lancamento = new Lancamento();
                 
                 lancamento.setId(resultadoBusca.getInt("id"));
-                lancamento.setIdConta(resultadoBusca.getInt("id_conta"));
-                lancamento.setIdCategoria(resultadoBusca.getInt("id_categoria"));
-                lancamento.setValor(resultadoBusca.getFloat("valor"));
+                lancamento.setIdConta(resultadoBusca.getString("id_conta"));
+                lancamento.setIdCategoria(resultadoBusca.getString("id_categoria"));
+                lancamento.setValor(resultadoBusca.getString("valor"));
                 lancamento.setOperacao(resultadoBusca.getString("operacao"));
-                lancamento.setData(resultadoBusca.getDate("data"));
+                lancamento.setData(resultadoBusca.getString("data"));
                 lancamento.setDescricao(resultadoBusca.getString("descricao"));
                 
                 resultado.add(lancamento);
@@ -63,11 +63,11 @@ public class lancamentosDAO extends HttpServlet{
                 Lancamento lancamento = new Lancamento();
                 
                 lancamento.setId(resultadoBusca.getInt("id"));
-                lancamento.setIdConta(resultadoBusca.getInt("id_conta"));
-                lancamento.setIdCategoria(resultadoBusca.getInt("id_categoria"));
-                lancamento.setValor(resultadoBusca.getFloat("valor"));
+                lancamento.setIdConta(resultadoBusca.getString("id_conta"));
+                lancamento.setIdCategoria(resultadoBusca.getString("id_categoria"));
+                lancamento.setValor(resultadoBusca.getString("valor"));
                 lancamento.setOperacao(resultadoBusca.getString("operacao"));
-                lancamento.setData(resultadoBusca.getDate("data"));
+                lancamento.setData(resultadoBusca.getString("data"));
                 lancamento.setDescricao(resultadoBusca.getString("descricao"));
                 
                 resultado.add(lancamento);
@@ -93,11 +93,11 @@ public class lancamentosDAO extends HttpServlet{
                 Lancamento lancamento = new Lancamento();
                 
                 lancamento.setId(resultadoBusca.getInt("id"));
-                lancamento.setIdConta(resultadoBusca.getInt("id_conta"));
-                lancamento.setIdCategoria(resultadoBusca.getInt("id_categoria"));
-                lancamento.setValor(resultadoBusca.getFloat("valor"));
+                lancamento.setIdConta(resultadoBusca.getString("id_conta"));
+                lancamento.setIdCategoria(resultadoBusca.getString("id_categoria"));
+                lancamento.setValor(resultadoBusca.getString("valor"));
                 lancamento.setOperacao(resultadoBusca.getString("operacao"));
-                lancamento.setData(resultadoBusca.getDate("data"));
+                lancamento.setData(resultadoBusca.getString("data"));
                 lancamento.setDescricao(resultadoBusca.getString("descricao"));
                 
                 resultado.add(lancamento);
@@ -119,11 +119,11 @@ public class lancamentosDAO extends HttpServlet{
             ResultSet resultadoBusca = sql.executeQuery();
             
             lancamento.setId(resultadoBusca.getInt("id"));
-            lancamento.setIdConta(resultadoBusca.getInt("id_conta"));
-            lancamento.setIdCategoria(resultadoBusca.getInt("id_categoria"));
-            lancamento.setValor(resultadoBusca.getFloat("valor"));
+            lancamento.setIdConta(resultadoBusca.getString("id_conta"));
+            lancamento.setIdCategoria(resultadoBusca.getString("id_categoria"));
+            lancamento.setValor(resultadoBusca.getString("valor"));
             lancamento.setOperacao(resultadoBusca.getString("operacao"));
-            lancamento.setData(resultadoBusca.getDate("data"));
+            lancamento.setData(resultadoBusca.getString("data"));
             lancamento.setDescricao(resultadoBusca.getString("descricao"));
             
         } catch(SQLException e){
@@ -155,15 +155,15 @@ public class lancamentosDAO extends HttpServlet{
         boolean resultado;
         
         try{
-            PreparedStatement sql = conexao.prepareStatement("insert into lancamento (id, id_conta, id_categoria, valor, operacao, data, descricao) values (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement sql = conexao.prepareStatement("insert into lancamentos (id_conta, id_categoria, valor, operacao, data, descricao) values (?, ?, ?, ?, ?, ?)");
             
-            sql.setInt(1, lancamento.getId());
-            sql.setInt(2, lancamento.getIdConta());
-            sql.setInt(3, lancamento.getIdCategoria());
-            sql.setFloat(4, lancamento.getValor());
-            sql.setString(5, lancamento.getOperacao());
-            sql.setDate(6, (Date) lancamento.getData());
-            sql.setString(7, lancamento.getDescricao());
+            sql.setString(1, lancamento.getIdConta());
+            sql.setString(2, lancamento.getIdCategoria());
+            sql.setString(3, lancamento.getValor());
+            sql.setString(4, lancamento.getOperacao());
+            sql.setString(5, lancamento.getData());
+            sql.setString(6, lancamento.getDescricao());
+            
             sql.executeUpdate();
             
             resultado = true;
@@ -182,11 +182,11 @@ public class lancamentosDAO extends HttpServlet{
         try{
             PreparedStatement sql = conexao.prepareStatement("update conta set id = ?, id_conta = ?, id_categoria = ?, valor = ?, operacao = ?, data = ?, descricao = ? where id == ?");
             sql.setInt(1, lancamento.getId());
-            sql.setInt(2, lancamento.getIdConta());
-            sql.setInt(3, lancamento.getIdCategoria());
-            sql.setFloat(4, lancamento.getValor());
+            sql.setString(2, lancamento.getIdConta());
+            sql.setString(3, lancamento.getIdCategoria());
+            sql.setString(4, lancamento.getValor());
             sql.setString(5, lancamento.getOperacao());
-            sql.setDate(6, (Date) lancamento.getData());
+            sql.setString(6, lancamento.getData());
             sql.setString(7, lancamento.getDescricao());
             sql.setInt(8, lancamento.getId());
             sql.executeUpdate();
