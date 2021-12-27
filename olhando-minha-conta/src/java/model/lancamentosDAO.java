@@ -188,7 +188,7 @@ public class lancamentosDAO extends HttpServlet{
             sql.setString(5, lancamento.getOperacao());
             sql.setString(6, lancamento.getData());
             sql.setString(7, lancamento.getDescricao());
-            sql.setString(8, lancamento.getId());
+            sql.setInt(8, lancamento.getId());
             sql.executeUpdate();
             
             resultado = true;

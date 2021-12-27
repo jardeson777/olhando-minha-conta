@@ -11,7 +11,7 @@ public class Lancamento {
     private String data;
     private String descricao;
     
-    public String getId(){
+    public int getId(){
         return this.id;
     }
     
@@ -39,7 +39,7 @@ public class Lancamento {
         return this.descricao;
     }
     
-    public void setId(String id){
+    public void setId(int id){
         this.id = id;
     }
     
