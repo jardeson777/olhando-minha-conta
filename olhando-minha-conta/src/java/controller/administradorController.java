@@ -18,8 +18,61 @@ public class administradorController extends HttpServlet{
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-        rd.forward(request, response);
+       // RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+       // rd.forward(request, response);
+       
+        administradoresDAO administradoresdao = new administradoresDAO();
+        String acao = (String) request.getParameter("acao");
+        int id;
+        ArrayList<Administrador> meusAdministradores;
+
+        Administrador administrador = new Administrador();
+        switch (acao) {
+            case "mostrar":
+                meusAdministradores = administradoresdao.getList();
+                request.setAttribute("meusAdministradores", meusAdministradores);
+                RequestDispatcher mostrar = getServletContext().getRequestDispatcher("/ListaAdministradorView.jsp");
+                mostrar.forward(request, response);
+                break;
+
+            case "incluir":
+                administrador.setNome("");
+                administrador.setCpf("");
+                administrador.setSenha("");
+
+                request.setAttribute("administrador", administrador);
+                RequestDispatcher incluir = getServletContext().getRequestDispatcher("/FormAdministrador.jsp");
+                incluir.forward(request, response);
+                break;
+
+            case "editar":
+
+                id = Integer.parseInt(request.getParameter("id"));
+                administrador = administradoresdao.getAdministradorPorID(id);
+
+                if (administrador.getId() > 0) {
+                    request.setAttribute("administrador", administrador);
+                    RequestDispatcher rs = request.getRequestDispatcher("FormAdministrador.jsp");
+                    rs.forward(request, response);
+                } else {
+                    String mensagem = "Erro ao gravar Administrador!";
+                    request.setAttribute("mensagem", mensagem);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/Erro.jsp");
+                    rd.forward(request, response);
+                }
+                break;
+
+            case "excluir":
+
+                id = Integer.parseInt(request.getParameter("id"));
+                administradoresdao.delete(id);
+
+                meusAdministradores = administradoresdao.getList();
+                request.setAttribute("meusAdministradores", meusAdministradores);
+                RequestDispatcher aposexcluir = getServletContext().getRequestDispatcher("/ListaAdministradorView.jsp");
+                aposexcluir.forward(request, response);
+                break;
+        }       
     }
     
     @Override

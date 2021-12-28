@@ -89,7 +89,7 @@ public class administradoresDAO extends HttpServlet{
     public boolean delete(int id){
         boolean resultado;
         try{
-            PreparedStatement sql = conexao.prepareStatement("delete from administradores where id == ?");
+            PreparedStatement sql = conexao.prepareStatement("delete from administradores where id = ?");
             sql.setInt(1, id);
             sql.executeUpdate();
             
@@ -143,4 +143,26 @@ public class administradoresDAO extends HttpServlet{
         
         return resultado;
     }
+    
+    public Administrador getAdministradorPorID( int codigo ) {
+        Administrador administrador = new Administrador();
+        try {
+            String sql = "SELECT * FROM administradores WHERE id = ?";
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setInt(1, codigo);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if ( rs.next() ) {
+                administrador.setId(rs.getInt("id"));
+                administrador.setNome( rs.getString("nome") );
+                administrador.setCpf(rs.getString("cpf") );
+                administrador.setSenha(rs.getString("Senha") );
+            }
+            
+        } catch( SQLException e ) {
+            System.out.println("Erro de SQL: " + e.getMessage());
+        }
+        return administrador;
+    }    
 }
