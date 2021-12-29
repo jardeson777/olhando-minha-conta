@@ -36,6 +36,7 @@ public class administradorController extends HttpServlet{
                 break;
 
             case "incluir":
+                administrador.setId(0);
                 administrador.setNome("");
                 administrador.setCpf("");
                 administrador.setSenha("");
@@ -92,10 +93,10 @@ public class administradorController extends HttpServlet{
                         categoria.setDescricao(request.getParameter("descricao"));
                         categoriaDAO.insert(categoria);
 
-                        RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
+                        RequestDispatcher rd = request.getRequestDispatcher("/SucessoAdm.jsp");
                         rd.forward(request, response);
                     }else {
-                        RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                        RequestDispatcher rd = request.getRequestDispatcher("/ErroAdm.jsp");
                         rd.forward(request, response);
                     }
                 break;
@@ -105,16 +106,17 @@ public class administradorController extends HttpServlet{
                     administradoresDAO administradorDAO = new administradoresDAO();
 
                     if(!request.getParameter("nome").isEmpty() && request.getParameter("cpf").length() == 14 && !request.getParameter("senha").isEmpty()){
+                        administrador.setId(Integer.parseInt(request.getParameter("id")));
                         administrador.setNome(request.getParameter("nome"));
                         administrador.setSenha(request.getParameter("senha"));
                         administrador.setCpf(request.getParameter("cpf"));
 
-                        administradorDAO.insert(administrador);
+                        administradorDAO.gravar(administrador);
 
-                        RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
+                        RequestDispatcher rd = request.getRequestDispatcher("/SucessoAdm.jsp");
                         rd.forward(request, response);
                     }else {
-                        RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                        RequestDispatcher rd = request.getRequestDispatcher("/ErroAdm.jsp");
                         rd.forward(request, response);
                     }
                 break;
@@ -138,23 +140,23 @@ public class administradorController extends HttpServlet{
                         usuariosDAO usuariodao = new usuariosDAO();
 
                         if (usuariodao.gravar(usuario)) {
-                            RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
+                            RequestDispatcher rd = request.getRequestDispatcher("/SucessoAdm.jsp");
                             rd.forward(request, response);
                         } else {
-                            RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                            RequestDispatcher rd = request.getRequestDispatcher("/ErroAdm.jsp");
                             rd.forward(request, response);
                         }
 
                     } 
                     else {
-                        RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                        RequestDispatcher rd = request.getRequestDispatcher("/ErroAdm.jsp");
                         rd.forward(request, response);
                     }
                 break;
             }
         } catch (Exception e){
             System.out.println(e);
-            RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/ErroAdm.jsp");
             rd.forward(request, response);
         }
     }

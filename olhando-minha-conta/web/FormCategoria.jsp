@@ -7,7 +7,7 @@
     <body>
         <div class="container mt-2">
 
-            <jsp:include page="Menu.jsp" />
+            <jsp:include page="MenuAdm.jsp" />
             
             <div class="col-lg-6 mt-5">
                 <h4>Incluir Categoria</h4>

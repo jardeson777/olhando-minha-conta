@@ -9,7 +9,7 @@
 
         <div class="container mt-2">
 
-            <jsp:include page="Menu.jsp" />
+            <jsp:include page="MenuAdm.jsp" />
 
                    
             <h1>Lista de Administradores</h1>     

@@ -103,39 +103,28 @@ public class administradoresDAO extends HttpServlet{
         return resultado;
     }
     
-    public boolean insert(Administrador administrador){
-        boolean resultado;
+    public boolean gravar(Administrador administrador){
+        boolean resultado;        
         
         try{
-            PreparedStatement sql = conexao.prepareStatement("insert into administradores (nome, cpf, senha) values (?, ?, ?)");
-            sql.setString(1, administrador.getNome());
-            sql.setString(2, administrador.getCpf());
-            sql.setString(3, administrador.getSenha());
-            sql.executeUpdate();
+            String sql;
+            if ( administrador.getId() == 0 ) {
+            sql = "INSERT INTO administradores (nome, cpf, senha) values (?, ?, ?)";
+            } else {
+            sql = "UPDATE administradores SET nome=?, cpf=?, senha=? WHERE id=?";
+            }
+            
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setString(1, administrador.getNome());
+            ps.setString(2, administrador.getCpf());
+            ps.setString(3, administrador.getSenha());
+            
+            if ( administrador.getId()> 0 )ps.setInt(4, administrador.getId());
+            
+            ps.executeUpdate();
             
             resultado = true;
         } catch (SQLException e){
-            System.out.println(e);
-            
-            resultado = false;
-        }
-        
-        return resultado;
-    }
-    
-    public boolean update(Administrador administrador){
-        boolean resultado;
-        
-        try{
-            PreparedStatement sql = conexao.prepareStatement("update administradores set nome = ?, cpf = ?, senha = ? where id == ?");
-            sql.setString(1, administrador.getNome());
-            sql.setString(2, administrador.getCpf());
-            sql.setString(3, administrador.getSenha());
-            sql.setInt(4, administrador.getId());
-            sql.executeUpdate();
-            
-            resultado = true;
-        } catch(SQLException e){
             System.out.println(e);
             
             resultado = false;

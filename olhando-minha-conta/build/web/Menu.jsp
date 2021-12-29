@@ -9,7 +9,7 @@
         <a class="nav-link" href="FormUsuario.jsp">Criar Usuário</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="FormAdministrador.jsp">Criar Administrador</a>
+        <a class="nav-link" href="administradorController?acao=incluir">Criar Administrador</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="FormCategoria.jsp">Criar Categoria</a>
