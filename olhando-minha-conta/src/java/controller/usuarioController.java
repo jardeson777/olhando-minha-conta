@@ -18,8 +18,63 @@ public class usuarioController extends HttpServlet{
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-        rd.forward(request, response);
+        // RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+        // rd.forward(request, response);
+        
+        usuariosDAO usuariosdao = new usuariosDAO();
+        String acao = (String) request.getParameter("acao");
+        int id;
+        ArrayList<Usuario> meusUsuarios;
+
+        Usuario usuario = new Usuario();
+        switch (acao) {
+            case "mostrar":
+                meusUsuarios = usuariosdao.getList();
+                request.setAttribute("meusUsuarios", meusUsuarios);
+                RequestDispatcher mostrar = getServletContext().getRequestDispatcher("/ListaUsuarioView.jsp");
+                mostrar.forward(request, response);
+                break;
+
+            case "incluir":
+                usuario.setId(0);
+                usuario.setNome("");
+                usuario.setCpf("");
+                usuario.setSenha("");
+                usuario.setSuspenso("");
+
+                request.setAttribute("usuario", usuario);
+                RequestDispatcher incluir = getServletContext().getRequestDispatcher("/FormUsuario.jsp");
+                incluir.forward(request, response);
+                break;
+
+            case "editar":
+
+                id = Integer.parseInt(request.getParameter("id"));
+                usuario = usuariosdao.getUsuarioPorID(id);
+
+                if (usuario.getId() > 0) {
+                    request.setAttribute("usuario", usuario);
+                    RequestDispatcher rs = request.getRequestDispatcher("FormUsuario.jsp");
+                    rs.forward(request, response);
+                } else {
+                    String mensagem = "Erro ao gravar Usuario!";
+                    request.setAttribute("mensagem", mensagem);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/ErroAdm.jsp");
+                    rd.forward(request, response);
+                }
+                break;
+
+            case "excluir":
+
+                id = Integer.parseInt(request.getParameter("id"));
+                usuariosdao.delete(id);
+
+                meusUsuarios = usuariosdao.getList();
+                request.setAttribute("meusUsuarios", meusUsuarios);
+                RequestDispatcher aposexcluir = getServletContext().getRequestDispatcher("/ListaUsuarioView.jsp");
+                aposexcluir.forward(request, response);
+                break;
+        }        
     }
     
     @Override

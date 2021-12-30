@@ -131,7 +131,7 @@ public class administradorController extends HttpServlet{
 
                         Usuario usuario = new Usuario();
 
-                        usuario.setId(0);
+                        usuario.setId(Integer.parseInt(request.getParameter("id")));
                         usuario.setNome(nome);
                         usuario.setSenha(senha);
                         usuario.setCpf(cpf);

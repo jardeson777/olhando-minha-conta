@@ -6,7 +6,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="FormUsuario.jsp">Criar Usuário</a>
+        <a class="nav-link" href="usuarioController?acao=mostrar">Listar Usuários</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="administradorController?acao=mostrar">Listar Administradores</a>

@@ -92,7 +92,7 @@ public class usuariosDAO extends HttpServlet{
     public boolean delete(int id){
         boolean resultado;
         try{
-            PreparedStatement sql = conexao.prepareStatement("delete from usuarios where id == ?");
+            PreparedStatement sql = conexao.prepareStatement("delete from usuarios where id = ?");
             sql.setInt(1, id);
             sql.executeUpdate();
             
@@ -126,7 +126,7 @@ public class usuariosDAO extends HttpServlet{
             if ( usuario.getId()> 0 )
                 ps.setInt(5, usuario.getId());
             
-            ps.execute();
+            ps.executeUpdate();
             
             resultado = true;
         } catch (SQLException e){
@@ -137,4 +137,27 @@ public class usuariosDAO extends HttpServlet{
         
         return resultado;
     }
+    
+    public Usuario getUsuarioPorID( int codigo ) {
+        Usuario usuario = new Usuario();
+        try {
+            String sql = "SELECT * FROM usuarios WHERE id = ?";
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setInt(1, codigo);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if ( rs.next() ) {
+                usuario.setId(rs.getInt("id"));
+                usuario.setNome( rs.getString("nome") );
+                usuario.setCpf(rs.getString("cpf") );
+                usuario.setSenha(rs.getString("Senha") );
+                usuario.setSuspenso(rs.getString("suspenso") );
+            }
+            
+        } catch( SQLException e ) {
+            System.out.println("Erro de SQL: " + e.getMessage());
+        }
+        return usuario;
+    }    
 }
