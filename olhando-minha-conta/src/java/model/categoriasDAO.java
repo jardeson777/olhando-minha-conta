@@ -66,7 +66,7 @@ public class categoriasDAO extends HttpServlet{
     public boolean delete(int id){
         boolean resultado;
         try{
-            PreparedStatement sql = conexao.prepareStatement("delete from categorias where id == ?");
+            PreparedStatement sql = conexao.prepareStatement("delete from categorias where id = ?");
             sql.setInt(1, id);
             sql.executeUpdate();
             
@@ -80,15 +80,25 @@ public class categoriasDAO extends HttpServlet{
         return resultado;
     }
     
-    public boolean insert(Categoria categoria){
+    public boolean gravar(Categoria categoria){
         boolean resultado;
         
         try{
-            PreparedStatement sql = conexao.prepareStatement("insert into categorias (descricao) values (?)");
-            sql.setString(1, categoria.getDescricao());
-            sql.executeUpdate();
+            String sql;
+            if ( categoria.getId() == 0 ) {
+            sql = "INSERT INTO categorias (descricao) values (?)";
+            } else {
+            sql = "UPDATE categorias SET descricao=? WHERE id=?";
+            }            
             
-            resultado = true;
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setString(1, categoria.getDescricao());
+            
+            if ( categoria.getId()> 0 )ps.setInt(2, categoria.getId());
+
+            ps.executeUpdate();
+            
+            resultado = true;            
         } catch (SQLException e){
             System.out.println(e);
             
@@ -98,22 +108,23 @@ public class categoriasDAO extends HttpServlet{
         return resultado;
     }
     
-    public boolean update(Categoria categoria){
-        boolean resultado;
-        
-        try{
-            PreparedStatement sql = conexao.prepareStatement("update categorias set descricao = ? where id == ?");
-            sql.setString(1, categoria.getDescricao());
-            sql.setInt(2, categoria.getId());
-            sql.executeUpdate();
+    public Categoria getCategoriaPorID( int codigo ) {
+        Categoria categoria = new Categoria();
+        try {
+            String sql = "SELECT * FROM categorias WHERE id = ?";
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setInt(1, codigo);
             
-            resultado = true;
-        } catch(SQLException e){
-            System.out.println(e);
+            ResultSet rs = ps.executeQuery();
             
-            resultado = false;
+            if ( rs.next() ) {
+                categoria.setId(rs.getInt("id"));
+                categoria.setDescricao( rs.getString("descricao") );
+            }
+            
+        } catch( SQLException e ) {
+            System.out.println("Erro de SQL: " + e.getMessage());
         }
-        
-        return resultado;
-    }
+        return categoria;
+    } 
 }

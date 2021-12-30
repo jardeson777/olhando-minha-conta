@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="aplicacao.Categoria"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,13 +10,18 @@
 
             <jsp:include page="MenuAdm.jsp" />
             
+            <%
+               Categoria aux = (Categoria)request.getAttribute("categoria");
+            %>             
+            
             <div class="col-lg-6 mt-5">
                 <h4>Incluir Categoria</h4>
                 <form method="POST" action="administradorController" >
                     <input hidden value="CriaCategoria" name="action"/>
+                    <input type="hidden" class="form-control" name="id" value="<%= aux.getId() %>">
                     <div class="form-group">
                         <label for="Descrição">Descrição</label>
-                        <input type="text" class="form-control" name="descricao" required size="20" maxlength="100" placeholder="Descrição da categoria">
+                        <input type="text" class="form-control" name="descricao" value="<%= aux.getDescricao() %>" required size="20" maxlength="100" placeholder="Descrição da categoria">
                     </div>                  
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>

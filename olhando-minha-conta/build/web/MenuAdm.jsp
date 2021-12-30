@@ -12,7 +12,7 @@
         <a class="nav-link" href="administradorController?acao=mostrar">Listar Administradores</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="FormCategoria.jsp">Criar Categoria</a>
+        <a class="nav-link" href="categoriaController?acao=mostrar">Listar Categorias</a>
       </li>
     </ul>
   </div>

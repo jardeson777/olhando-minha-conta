@@ -90,8 +90,9 @@ public class administradorController extends HttpServlet{
                     categoriasDAO categoriaDAO = new categoriasDAO();
 
                     if(!request.getParameter("descricao").isEmpty()){
+                        categoria.setId(Integer.parseInt(request.getParameter("id")));
                         categoria.setDescricao(request.getParameter("descricao"));
-                        categoriaDAO.insert(categoria);
+                        categoriaDAO.gravar(categoria);
 
                         RequestDispatcher rd = request.getRequestDispatcher("/SucessoAdm.jsp");
                         rd.forward(request, response);
