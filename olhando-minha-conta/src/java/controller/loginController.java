@@ -22,6 +22,19 @@ public class loginController extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher("/FormLogin.jsp");
         rd.forward(request, response);
+        
+        String acao = (String) request.getParameter("acao");
+        if("sair".equals(acao)){
+            HttpSession session = request.getSession();
+            session.setAttribute("administrador", null);
+            session.removeAttribute("administrador");
+            
+             response.sendRedirect("FormLogin.jsp");
+            
+            //RequestDispatcher rd = request.getRequestDispatcher("/FormLogin.jsp");
+            //rd.forward(request, response);
+            
+        }
     }
 
         
@@ -30,6 +43,7 @@ public class loginController extends HttpServlet{
         try{
             String cpf = request.getParameter("cpf");
             String senha = request.getParameter("senha");
+
             
             if(!cpf.isEmpty() && cpf.length() == 14 & !senha.isEmpty()){
                 administradoresDAO administradorDAO = new administradoresDAO();
@@ -39,12 +53,21 @@ public class loginController extends HttpServlet{
                 boolean loginUsuario = usuarioDAO.getLogin(cpf, senha);
                 
                 if(loginAdministrador){
-                    RequestDispatcher rd = request.getRequestDispatcher("/administradorLogado.jsp");
+                    Administrador administrador = new Administrador();
+                    
+                    administrador = administradorDAO.getDadosCpf(cpf);
+                    
+                    HttpSession session = request.getSession();
+                    session.setAttribute("administrador", administrador);
+                    
+                    RequestDispatcher rd = request.getRequestDispatcher("/indexAdm.jsp");
                     rd.forward(request, response);
-                } else if(loginUsuario){
+                } 
+                /*else if(loginUsuario){
                     RequestDispatcher rd = request.getRequestDispatcher("/usuarioLogado.jsp");
                     rd.forward(request, response);
-                } else {
+                } */
+                else {
                     HttpSession session = request.getSession();
                     session.setAttribute("erro", "sim");
                     
@@ -52,6 +75,7 @@ public class loginController extends HttpServlet{
                     rd.forward(request, response);
                 }
             }
+            
         }catch(Exception e){
             System.out.println(e);
         }

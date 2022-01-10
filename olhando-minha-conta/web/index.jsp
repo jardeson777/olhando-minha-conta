@@ -7,6 +7,12 @@
         <%@include file="Scripts_basicos.html"%>
     </head>
     <body>
+        <%
+            if(session.getAttribute("administrador") != null){
+                String redirectURL = "indexAdm.jsp";
+                response.sendRedirect(redirectURL);
+            }
+        %>
         <header>
             <img src="assets/img/logo.png" alt="logo" />
             <a href="FormLogin.jsp">Logar</a>

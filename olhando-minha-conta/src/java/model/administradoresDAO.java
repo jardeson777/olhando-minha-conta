@@ -67,18 +67,45 @@ public class administradoresDAO extends HttpServlet{
     }
     
     public Administrador getDados(int id){
-        Administrador administrador = null;
+        Administrador administrador = new Administrador();
         
         try{
-            PreparedStatement sql = conexao.prepareStatement("select * from administradores where id == ?");
+            PreparedStatement sql = conexao.prepareStatement("select * from administradores where id = ?");
             sql.setInt(1, id);
             ResultSet resultadoBusca = sql.executeQuery();
             
-            administrador.setId(resultadoBusca.getInt("id"));
-            administrador.setNome(resultadoBusca.getString("nome"));
-            administrador.setCpf(resultadoBusca.getString("cpf"));
-            administrador.setSenha(resultadoBusca.getString("senha"));
+            if (resultadoBusca.next()) {
+                administrador.setId(resultadoBusca.getInt("id"));
+                administrador.setNome(resultadoBusca.getString("nome"));
+                administrador.setCpf(resultadoBusca.getString("cpf"));
+                administrador.setSenha(resultadoBusca.getString("senha"));
+            }
             
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+        
+        return administrador;
+    }
+    
+    public Administrador getDadosCpf(String cpf){
+        Administrador administrador = new Administrador();
+        
+        try{
+            String query = "select * from administradores where cpf = ?";
+            PreparedStatement sql = conexao.prepareStatement(query);
+            sql.setString(1, cpf);
+            
+            ResultSet resultadoBusca = sql.executeQuery();
+            
+            if (resultadoBusca.next()) {
+                administrador.setId(resultadoBusca.getInt("id"));
+                administrador.setNome(resultadoBusca.getString("nome"));
+                administrador.setCpf(resultadoBusca.getString("cpf"));
+                administrador.setSenha(resultadoBusca.getString("senha"));
+            } else {
+                return null;
+            }
         } catch(SQLException e){
             System.out.println(e);
         }
@@ -109,9 +136,9 @@ public class administradoresDAO extends HttpServlet{
         try{
             String sql;
             if ( administrador.getId() == 0 ) {
-            sql = "INSERT INTO administradores (nome, cpf, senha) values (?, ?, ?)";
+                sql = "INSERT INTO administradores (nome, cpf, senha) values (?, ?, ?)";
             } else {
-            sql = "UPDATE administradores SET nome=?, cpf=?, senha=? WHERE id=?";
+                sql = "UPDATE administradores SET nome=?, cpf=?, senha=? WHERE id=?";
             }
             
             PreparedStatement ps = conexao.prepareStatement(sql);

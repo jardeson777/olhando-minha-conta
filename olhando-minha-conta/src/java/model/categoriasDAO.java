@@ -50,12 +50,33 @@ public class categoriasDAO extends HttpServlet{
         Categoria categoria = null;
         
         try{
-            PreparedStatement sql = conexao.prepareStatement("select * from categorias where id == ?");
+            PreparedStatement sql = conexao.prepareStatement("select * from categorias where id = ?");
             sql.setInt(1, id);
             ResultSet resultadoBusca = sql.executeQuery();
             
             categoria.setId(resultadoBusca.getInt("id"));
             categoria.setDescricao(resultadoBusca.getString("descricao"));
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+        
+        return categoria;
+    }
+    
+    public Categoria getDadosDescricao(String descricao){
+        Categoria categoria = null;
+        
+        try{
+            PreparedStatement sql = conexao.prepareStatement("select * from categorias where descricao = ?");
+            sql.setString(1, descricao);
+            ResultSet resultadoBusca = sql.executeQuery();
+            
+            if(resultadoBusca.next()){
+                categoria.setId(resultadoBusca.getInt("id"));
+                categoria.setDescricao(resultadoBusca.getString("descricao"));
+            } else {
+                return null;
+            }
         } catch(SQLException e){
             System.out.println(e);
         }

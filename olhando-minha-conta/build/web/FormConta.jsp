@@ -34,7 +34,7 @@
                     </div>
                     <input hidden value="CriarConta" name="action"/>
                     <div class="form-group">
-                        <input type="hidden" class="form-control" name="id_usuario" required size="11" maxlength="100" placeholder="ID do Usuário">
+                        <input type="hidden" class="form-control" name="id_usuario">
                     </div>
                     <div class="form-group">
                         <label for="Nome">Nome da Conta</label>

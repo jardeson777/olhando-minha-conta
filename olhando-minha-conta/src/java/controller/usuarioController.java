@@ -67,7 +67,11 @@ public class usuarioController extends HttpServlet{
             case "excluir":
 
                 id = Integer.parseInt(request.getParameter("id"));
-                usuariosdao.delete(id);
+                boolean deleteUser = usuariosdao.delete(id);
+                
+                if(!deleteUser){
+                    request.setAttribute("erro", !deleteUser);
+                }
 
                 meusUsuarios = usuariosdao.getList();
                 request.setAttribute("meusUsuarios", meusUsuarios);

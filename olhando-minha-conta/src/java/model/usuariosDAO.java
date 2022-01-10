@@ -71,7 +71,7 @@ public class usuariosDAO extends HttpServlet{
         Usuario usuario = new Usuario();
         
         try{
-            PreparedStatement sql = conexao.prepareStatement("select * from usuarios where id == ?");
+            PreparedStatement sql = conexao.prepareStatement("select * from usuarios where id = ?");
             sql.setInt(1, id);
             ResultSet resultadoBusca = sql.executeQuery();
             
@@ -88,6 +88,31 @@ public class usuariosDAO extends HttpServlet{
         
         return usuario;
     }
+    
+    public Usuario getDadosCpf(String cpf){
+        Usuario usuario = new Usuario();
+        
+        try{
+            PreparedStatement sql = conexao.prepareStatement("select * from usuarios where cpf = ?");
+            sql.setString(1, cpf);
+            ResultSet resultadoBusca = sql.executeQuery();
+            
+            if(resultadoBusca.next()){
+                usuario.setId(resultadoBusca.getInt("id"));
+                usuario.setNome(resultadoBusca.getString("nome"));
+                usuario.setCpf(resultadoBusca.getString("cpf"));
+                usuario.setSenha(resultadoBusca.getString("senha"));
+                usuario.setSuspenso(resultadoBusca.getString("suspenso"));
+            } else {
+                return null;
+            }
+        } catch(SQLException e){
+            System.out.println(e);
+            usuario = null;
+        }
+        
+        return usuario;
+    }
 
     public boolean delete(int id){
         boolean resultado;
@@ -95,7 +120,6 @@ public class usuariosDAO extends HttpServlet{
             PreparedStatement sql = conexao.prepareStatement("delete from usuarios where id = ?");
             sql.setInt(1, id);
             sql.executeUpdate();
-            
             resultado = true;
         } catch (SQLException e){
             System.out.println(e);
