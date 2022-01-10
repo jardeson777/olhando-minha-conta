@@ -20,19 +20,14 @@ import javax.servlet.http.HttpSession;
 public class loginController extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("/FormLogin.jsp");
-        rd.forward(request, response);
-        
         String acao = (String) request.getParameter("acao");
         if("sair".equals(acao)){
             HttpSession session = request.getSession();
             session.setAttribute("administrador", null);
             session.removeAttribute("administrador");
             
-             response.sendRedirect("FormLogin.jsp");
-            
-            //RequestDispatcher rd = request.getRequestDispatcher("/FormLogin.jsp");
-            //rd.forward(request, response);
+            RequestDispatcher rd = request.getRequestDispatcher("/FormLogin.jsp");
+            rd.forward(request, response);
             
         }
     }
