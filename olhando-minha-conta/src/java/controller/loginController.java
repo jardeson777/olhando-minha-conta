@@ -23,8 +23,11 @@ public class loginController extends HttpServlet{
         String acao = (String) request.getParameter("acao");
         if("sair".equals(acao)){
             HttpSession session = request.getSession();
-            session.setAttribute("administrador", null);
-            session.removeAttribute("administrador");
+            
+            if(session.getAttribute("administrador") != null){
+                session.removeAttribute("administrador");
+            }            
+            else{session.removeAttribute("usuario");}         
             
             RequestDispatcher rd = request.getRequestDispatcher("/FormLogin.jsp");
             rd.forward(request, response);
@@ -58,10 +61,17 @@ public class loginController extends HttpServlet{
                     RequestDispatcher rd = request.getRequestDispatcher("/indexAdm.jsp");
                     rd.forward(request, response);
                 } 
-                /*else if(loginUsuario){
-                    RequestDispatcher rd = request.getRequestDispatcher("/usuarioLogado.jsp");
+                else if(loginUsuario){
+                    Usuario usuario = new Usuario();
+                    
+                    usuario = usuarioDAO.getDadosCpf(cpf);
+                    
+                    HttpSession session = request.getSession();
+                    session.setAttribute("usuario", usuario);
+                
+                    RequestDispatcher rd = request.getRequestDispatcher("/indexUsuario.jsp");
                     rd.forward(request, response);
-                } */
+                }
                 else {
                     HttpSession session = request.getSession();
                     session.setAttribute("erro", "sim");

@@ -97,7 +97,7 @@ public class contasDAO extends HttpServlet{
     public boolean delete(int id){
         boolean resultado;
         try{
-            PreparedStatement sql = conexao.prepareStatement("delete from conta where id == ?");
+            PreparedStatement sql = conexao.prepareStatement("delete from contas where id = ?");
             sql.setInt(1, id);
             sql.executeUpdate();
             
@@ -111,18 +111,26 @@ public class contasDAO extends HttpServlet{
         return resultado;
     }
     
-    public boolean insert(Conta conta){
+    public boolean gravar(Conta conta){
         boolean resultado;
         
         try{
-            String sql = "INSERT INTO contas (id_usuario, nome_conta, banco, agencia, conta_corrente) VALUES (?,?,?,?,?)";
+            String sql;
+            if ( conta.getId() == 0 ) {
+            sql = "INSERT INTO contas (id_usuario, nome_conta, banco, agencia, conta_corrente) VALUES (?,?,?,?,?)";
+            } else {
+            sql = "UPDATE contas SET id_usuario = ?, nome_conta = ?, banco = ?, agencia = ?, conta_corrente = ? WHERE id = ?";
+            }                
             
+                        
             PreparedStatement ps = conexao.prepareStatement(sql);
             ps.setString(1, conta.getIdUsuario());
             ps.setString(2, conta.getNomeConta());
             ps.setString(3, conta.getBanco());
             ps.setString(4, conta.getAgencia());
             ps.setString(5, conta.getContaCorrente());
+            
+            if ( conta.getId()> 0 )ps.setInt(6, conta.getId());            
             
             ps.executeUpdate();
             
@@ -135,28 +143,28 @@ public class contasDAO extends HttpServlet{
         
         return resultado;        
     }
-    
-    public boolean update(Conta conta){
-        boolean resultado;
-        
-        try{
-            PreparedStatement sql = conexao.prepareStatement("update conta set id = ?, id_usuario = ?, nome_conta = ?, banco = ?, agencia = ?, conta_corrente = ? where id == ?");
-            sql.setInt(1, conta.getId());
-            sql.setString(2, conta.getIdUsuario());
-            sql.setString(3, conta.getNomeConta());
-            sql.setString(4, conta.getBanco());
-            sql.setString(5, conta.getAgencia());
-            sql.setString(6, conta.getContaCorrente());
-            sql.setInt(7, conta.getId());
-            sql.executeUpdate();
+
+    public Conta getContaPorID( int codigo ) {
+        Conta conta = new Conta();
+        try {
+            String sql = "SELECT * FROM contas WHERE id = ?";
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setInt(1, codigo);
             
-            resultado = true;
-        } catch(SQLException e){
-            System.out.println(e);
+            ResultSet rs = ps.executeQuery();
             
-            resultado = false;
+            if ( rs.next() ) {
+                conta.setId(rs.getInt("id"));
+                conta.setIdUsuario( rs.getString("id_usuario") );
+                conta.setNomeConta( rs.getString("nome_conta") );
+                conta.setBanco( rs.getString("banco") );
+                conta.setAgencia( rs.getString("agencia") );
+                conta.setContaCorrente( rs.getString("conta_corrente") );
+            }
+            
+        } catch( SQLException e ) {
+            System.out.println("Erro de SQL: " + e.getMessage());
         }
-        
-        return resultado;
-    }
+        return conta;
+    }     
 }

@@ -11,6 +11,7 @@ import javax.servlet.RequestDispatcher;
 
 import model.*;
 import aplicacao.*;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "usuarioController", urlPatterns = {"/usuarioController"})
 
@@ -91,26 +92,42 @@ public class usuarioController extends HttpServlet{
                 Conta conta = new Conta();
                 contasDAO contaDAO = new contasDAO();
 
-                if(!request.getParameter("id_usuario").isEmpty() && !request.getParameter("nome").isEmpty() && request.getParameter("banco").length() == 3 && request.getParameter("agencia").length() == 6  && request.getParameter("conta_corrente").length() == 6){
+                if(!request.getParameter("id_usuario").isEmpty() && !request.getParameter("nome_conta").isEmpty() && request.getParameter("banco").length() == 3 && request.getParameter("agencia").length() == 6  && request.getParameter("conta_corrente").length() == 6){
                     String idUsuario = request.getParameter("id_usuario");
 
+                    conta.setId(Integer.parseInt(request.getParameter("id")));
                     conta.setIdUsuario(idUsuario);
-                    conta.setNomeConta(request.getParameter("nome"));
+                    conta.setNomeConta(request.getParameter("nome_conta"));
                     conta.setBanco(request.getParameter("banco"));
                     conta.setAgencia(request.getParameter("agencia"));
                     conta.setContaCorrente(request.getParameter("conta_corrente"));
 
                     boolean existeConta = contaDAO.searchData(conta);
 
-                    if(!existeConta){
-                        contaDAO.insert(conta);
-
-                        RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
+                    if(contaDAO.gravar(conta)){
+                        HttpSession session = request.getSession();
+                        session.setAttribute("erro", "nao");
+                            
+                        contasDAO contadao = new contasDAO();
+                        ArrayList<Conta> minhasContas;
+                            
+                        minhasContas = contaDAO.getList();
+                        request.setAttribute("minhasContas", minhasContas);
+                        RequestDispatcher mostrar = getServletContext().getRequestDispatcher("/ListaContaView.jsp");
+                        mostrar.forward(request, response);
+                    } else {
+                        HttpSession session = request.getSession();
+                        session.setAttribute("erro", "sim");
+                            
+                        RequestDispatcher rd = request.getRequestDispatcher("/FormConta.jsp");
                         rd.forward(request, response);
-                    }
+                        }
 
                 }else {
-                    RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                    HttpSession session = request.getSession();
+                    session.setAttribute("erro", "sim");
+                        
+                    RequestDispatcher rd = request.getRequestDispatcher("/FormConta.jsp");
                     rd.forward(request, response);
                 }
             break;

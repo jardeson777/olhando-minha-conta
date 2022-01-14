@@ -7,7 +7,7 @@
     <body>
         <div class="container mt-2">
 
-            <jsp:include page="MenuAdm.jsp" />
+            < <!-- jsp:include page="MenuAdm.jsp" --> />
 
             <div class="col-8 mt-5">
 

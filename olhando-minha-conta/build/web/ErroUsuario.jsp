@@ -6,11 +6,7 @@
     </head>
     <body>
         <div class="container mt-2">
-
-            < <!-- jsp:include page="MenuAdm.jsp" --> />
-
             <div class="col-8 mt-5">
-
                 <div class="alert alert-danger" role="alert">
                     <h5>Digite os Dados corretamente!</h5>
                 </div>
