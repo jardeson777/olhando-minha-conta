@@ -27,7 +27,7 @@ public class lancamentosDAO extends HttpServlet{
             resultado = new ArrayList<>();
                     
             Statement sql = conexao.createStatement();
-            ResultSet resultadoBusca = sql.executeQuery("select * from lancamento");
+            ResultSet resultadoBusca = sql.executeQuery("select * from lancamentos");
             
             while(resultadoBusca.next()){
                 Lancamento lancamento = new Lancamento();
@@ -137,7 +137,7 @@ public class lancamentosDAO extends HttpServlet{
     public boolean delete(int id){
         boolean resultado;
         try{
-            PreparedStatement sql = conexao.prepareStatement("delete from lancamento where id == ?");
+            PreparedStatement sql = conexao.prepareStatement("delete from lancamentos where id = ?");
             sql.setInt(1, id);
             sql.executeUpdate();
             
@@ -151,20 +151,28 @@ public class lancamentosDAO extends HttpServlet{
         return resultado;
     }
     
-    public boolean insert(Lancamento lancamento){
+    public boolean gravar(Lancamento lancamento){
         boolean resultado;
         
         try{
-            PreparedStatement sql = conexao.prepareStatement("insert into lancamentos (id_conta, id_categoria, valor, operacao, data, descricao) values (?, ?, ?, ?, ?, ?)");
+            String sql;
+            if ( lancamento.getId() == 0 ) {
+            sql = "INSERT INTO lancamentos (id_conta, id_categoria, valor, operacao, data, descricao) VALUES (?, ?, ?, ?, ?, ?)";
+            } else {
+            sql = "UPDATE lancamentos SET id_conta = ?, id_categoria = ?, valor = ?, operacao = ?, data = ?, descricao = ? WHERE id = ?";
+            }        
+        
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setString(1, lancamento.getIdConta());
+            ps.setString(2, lancamento.getIdCategoria());
+            ps.setString(3, lancamento.getValor());
+            ps.setString(4, lancamento.getOperacao());
+            ps.setString(5, lancamento.getData());
+            ps.setString(6, lancamento.getDescricao());
             
-            sql.setString(1, lancamento.getIdConta());
-            sql.setString(2, lancamento.getIdCategoria());
-            sql.setString(3, lancamento.getValor());
-            sql.setString(4, lancamento.getOperacao());
-            sql.setString(5, lancamento.getData());
-            sql.setString(6, lancamento.getDescricao());
+            if ( lancamento.getId()> 0 )ps.setInt(7, lancamento.getId());            
             
-            sql.executeUpdate();
+            ps.executeUpdate();
             
             resultado = true;
         } catch (SQLException e){
@@ -173,31 +181,31 @@ public class lancamentosDAO extends HttpServlet{
             resultado = false;
         }
         
-        return resultado;
+        return resultado;  
     }
     
-    public boolean update(Lancamento lancamento){
-        boolean resultado;
-        
-        try{
-            PreparedStatement sql = conexao.prepareStatement("update conta set id = ?, id_conta = ?, id_categoria = ?, valor = ?, operacao = ?, data = ?, descricao = ? where id == ?");
-            sql.setInt(1, lancamento.getId());
-            sql.setString(2, lancamento.getIdConta());
-            sql.setString(3, lancamento.getIdCategoria());
-            sql.setString(4, lancamento.getValor());
-            sql.setString(5, lancamento.getOperacao());
-            sql.setString(6, lancamento.getData());
-            sql.setString(7, lancamento.getDescricao());
-            sql.setInt(8, lancamento.getId());
-            sql.executeUpdate();
+    public Lancamento getLancamentoPorID( int codigo ) {
+        Lancamento lancamento = new Lancamento();
+        try {
+            String sql = "SELECT * FROM lancamentos WHERE id = ?";
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setInt(1, codigo);
             
-            resultado = true;
-        } catch(SQLException e){
-            System.out.println(e);
+            ResultSet rs = ps.executeQuery();
             
-            resultado = false;
+            if ( rs.next() ) {
+                lancamento.setId(rs.getInt("id"));
+                lancamento.setIdConta( rs.getString("id_conta") );
+                lancamento.setIdCategoria( rs.getString("id_categoria") );
+                lancamento.setValor( rs.getString("valor") );
+                lancamento.setOperacao( rs.getString("operacao") );
+                lancamento.setData( rs.getString("data") );
+                lancamento.setDescricao( rs.getString("descricao") );
+            }
+            
+        } catch( SQLException e ) {
+            System.out.println("Erro de SQL: " + e.getMessage());
         }
-        
-        return resultado;
-    }
+        return lancamento;
+    } 
 }

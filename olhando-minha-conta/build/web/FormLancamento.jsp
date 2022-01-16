@@ -1,39 +1,84 @@
 <%@page import="model.categoriasDAO"%>
 <%@page import="aplicacao.Categoria"%>
 <%@page import="model.contasDAO"%>
+<%@page import="aplicacao.Usuario"%>
 <%@page import="aplicacao.Conta"%>
+<%@page import="aplicacao.Lancamento"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <%//@include file="Cabecalho.html" %>
+        <style>
+            body {
+                background: #f25f4c !important;
+                min-height: 100vh;
+                margin: 0;
+            }
+            div.container {
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            div.content {
+                width: 100%;
+                max-width: 500px;
+                margin: auto;
+                background: #fff;
+                border-radius: 8px;
+                height: fit-content;
+                padding: 20px;
+            }
+        </style>   
     </head>
     <body>
-        <div class="container mt-2">
-
-            <jsp:include page="Menu.jsp" />
+        <%
+            Usuario dado = (Usuario)session.getAttribute("usuario");
             
-            <div class="col-lg-6 mt-5">
-                <h4>Incluir Lançamento</h4>
+            if(dado == null){
+                String redirectURL = "FormLogin.jsp";
+                response.sendRedirect(redirectURL);
+            }
+        %>        
+        <div class="container">      
+            
+            <div class="content">
+                <%
+                   Lancamento aux = (Lancamento)request.getAttribute("lancamento");
+                %>                  
+                
+                <h4><% if(aux == null){out.println("Incluir Lancamento");} else {out.println("Editar Lancamento");}%></h4>
                 <form method="POST" action="usuarioController" >
+                    <% 
+                        Object erro = session.getAttribute("erro");
+                    %>
+                    <%if (erro == "sim"){%>
+                    <div class="col-lg-10 ml-auto mr-auto mt-3 mb-3">
+                        <div class="alert alert-danger" role="alert">
+                            <h5>Dados inválidos!</h5>
+                        </div>
+                    </div>
+                    <%}%>
+                    
                     <input hidden value="CriarLancamento" name="action"/>
+                    <input type="hidden" class="form-control" name="<%if(aux != null){out.print("id");}%>" value="<%if(aux != null){out.print(aux.getId());} %>">                    
                     <div class="form-group">
-                        <label for="ID_Conta">Conta</label>
-                        
+                        <label for="ID_Conta">Conta</label> 
                         <select class="form-control" name="id_conta">
                             <option value="" selected>Selecione a conta</option>
                             <%
-                                ArrayList<Conta> contas = new ArrayList();
+                                ArrayList<Conta> ListaConta = new ArrayList();
                                 contasDAO contaDAO = new contasDAO();
-                                
-                                contas = contaDAO.getList();
-                                
-                                for(int i = 0; i < contas.size(); i++){
-                                    Conta conta = contas.get(i);
-                            %>
-                            <option value="<%out.println(conta.getId());%>"><%out.println(conta.getId());%> | <%out.println(conta.getNomeConta());%> | <%out.println(conta.getContaCorrente());%></option>
-                            <%}%>
+                                ListaConta = contaDAO.getList();
+                                for (int i = 0; i < ListaConta.size(); i++) {
+                                    if(Integer.parseInt(ListaConta.get(i).getIdUsuario()) == dado.getId()){
+                                        Conta aux_conta = ListaConta.get(i);                               
+                            %>                            
+                            <option value="<%out.println(aux_conta.getId());%>"><%out.println(aux_conta.getId());%> | <%out.println(aux_conta.getNomeConta());%> | <%out.println(aux_conta.getContaCorrente());%></option>
+                            <%} }%>
                         </select>
                     </div>
                     <div class="form-group">
@@ -46,8 +91,8 @@
                                 
                                 categorias = categoriaDAO.getList();
                                 
-                                for(int i = 0; i < categorias.size(); i++){
-                                    Categoria categoria = categorias.get(i);
+                                for(int j = 0; j < categorias.size(); j++){
+                                    Categoria categoria = categorias.get(j);
                             %>
                             <option value="<%out.println(categoria.getId());%>"><%out.println(categoria.getId() + " | " + categoria.getDescricao());%></option>
                             <%}%>
@@ -55,25 +100,29 @@
                     </div>
                     <div class="form-group">
                         <label for="Valor">Valor</label>
-                        <input type="text" class="form-control"  name="valor" required size="10" placeholder="Valor decimal">
+                        <input type="text" class="form-control"  name="valor" value="<%if(aux == null){out.print("");}else{ out.print(aux.getValor());} %>" required size="10" placeholder="Valor decimal">
                     </div>
                     <div class="form-group">
                         <label for="Operacao">Operação</label>
                         <select class="form-control" name="operacao">
-                            <option value="" selected>Selecione uma operação</option>
-                            <option value="C">Crédito</option>
-                            <option value="D">Débito</option>
+                            <option value="">Selecione uma operação</option>
+                            <option value="C" <%if("C".equals(aux.getOperacao())){out.print("selected");}%>>Crédito</option>
+                            <option value="D" <%if("D".equals(aux.getOperacao())){out.print("selected");}%>>Débito</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="Data">Data</label>
-                        <input type="text" class="form-control data"  name="data" required size="8" placeholder="Data">
+                        <input type="text" class="form-control data"  name="data" value="<%if(aux == null){out.print("");}else{ out.print(aux.getData());} %>" required size="8" placeholder="Data">
                     </div>
                     <div class="form-group">
                         <label for="Descrição">Descrição</label>
-                        <input type="text" class="form-control" name="descricao" required size="20" maxlength="100" placeholder="Descrição da categoria">
+                        <input type="text" class="form-control" name="descricao" value="<%if(aux == null){out.print("");}else{ out.print(aux.getDescricao());} %>" required size="20" maxlength="100" placeholder="Descrição da categoria">
                     </div> 
+                    <button type="button" class="btn btn-secondary">Voltar</button>
                     <button type="submit" class="btn btn-primary">Enviar</button>
+                    <%
+                        session.setAttribute("erro", "nao");
+                    %>
                 </form>
             </div>
         </div>
@@ -81,10 +130,13 @@
         <%@include file="Scripts_basicos.html" %>
 
 	<script>
-		$(document).ready(function(){ 
-		   $('.conta_corrente').mask('0000-0', {reverse: true});
-                   $('.data').mask('0000-00-00', {reverse: true});
-		});
+            $(document).ready(function(){ 
+                $('.data').mask('0000-00-00', {reverse: true});
+            });
+                
+            $('.btn-secondary').click(() => {
+                window.location.href = "lancamentoController?acao=mostrar";
+            });                 
 	</script>        
     </body>
 </html>

@@ -119,8 +119,7 @@
                                 if(Integer.parseInt(ListaConta.get(i).getIdUsuario()) == dado.getId()){
                                     Conta aux = ListaConta.get(i);
                                     String link_editar = "contaController?acao=editar&id="+aux.getId();
-                                    String link_excluir = "contaController?acao=excluir&id="+aux.getId();
-                                
+                                    String link_excluir = "contaController?acao=excluir&id="+aux.getId();                                
                         %>
                         <tr>
                             <td><%=aux.getNomeConta()%></td>

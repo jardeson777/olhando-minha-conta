@@ -135,9 +135,11 @@ public class usuarioController extends HttpServlet{
             case "CriarLancamento":
                     Lancamento lancamento = new Lancamento();
                     lancamentosDAO lancamentodao = new lancamentosDAO();
+                    contasDAO contasdao = new contasDAO();
 
                     if(!request.getParameter("id_conta").isEmpty() && !request.getParameter("id_categoria").isEmpty() && !request.getParameter("valor").isEmpty() && request.getParameter("operacao").length() == 1 && request.getParameter("data").length() == 10  && !request.getParameter("descricao").isEmpty()){                     
                         
+                        lancamento.setId(Integer.parseInt(request.getParameter("id")));
                         lancamento.setIdConta(request.getParameter("id_conta"));
                         lancamento.setIdCategoria(request.getParameter("id_categoria"));
                         lancamento.setValor(request.getParameter("valor"));
@@ -145,16 +147,34 @@ public class usuarioController extends HttpServlet{
                         lancamento.setData(request.getParameter("data"));
                         lancamento.setDescricao(request.getParameter("descricao"));
                         
-                        if (lancamentodao.insert(lancamento)) {
-                            RequestDispatcher rd = request.getRequestDispatcher("/Sucesso.jsp");
-                            rd.forward(request, response);
+                        if (lancamentodao.gravar(lancamento)) {
+                        HttpSession session = request.getSession();
+                        session.setAttribute("erro", "nao");
+                            
+                        lancamentosDAO lancamentosdao = new lancamentosDAO();
+                        
+                        ArrayList<Conta> minhasContas;
+                        ArrayList<Lancamento> meusLancamentos;
+                        
+                        minhasContas = contasdao.getList();
+                        request.setAttribute("minhasContas", minhasContas);
+                        meusLancamentos = lancamentodao.getList();
+                        request.setAttribute("meusLancamentos", meusLancamentos);
+                        RequestDispatcher mostrar = getServletContext().getRequestDispatcher("/ListaLancamentoView.jsp");
+                        mostrar.forward(request, response);
                         } else {
-                            RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
-                            rd.forward(request, response);
+                        HttpSession session = request.getSession();
+                        session.setAttribute("erro", "sim");
+                            
+                        RequestDispatcher rd = request.getRequestDispatcher("/FormLancamento.jsp");
+                        rd.forward(request, response);
                         }
 
                     }else {
-                        RequestDispatcher rd = request.getRequestDispatcher("/Erro.jsp");
+                        HttpSession session = request.getSession();
+                        session.setAttribute("erro", "sim");
+                            
+                        RequestDispatcher rd = request.getRequestDispatcher("/FormLancamento.jsp");
                         rd.forward(request, response);
                     }
             break;
