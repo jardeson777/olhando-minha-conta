@@ -137,7 +137,7 @@ public class usuarioController extends HttpServlet{
                     lancamentosDAO lancamentodao = new lancamentosDAO();
                     contasDAO contasdao = new contasDAO();
 
-                    if(!request.getParameter("id_conta").isEmpty() && !request.getParameter("id_categoria").isEmpty() && !request.getParameter("valor").isEmpty() && request.getParameter("operacao").length() == 1 && request.getParameter("data").length() == 10  && !request.getParameter("descricao").isEmpty()){                     
+                    if(!request.getParameter("id_conta").isEmpty() && !request.getParameter("id_categoria").isEmpty() && !request.getParameter("valor").isEmpty() && request.getParameter("operacao").length() == 1 && request.getParameter("data").length() == 10){                     
                         
                         lancamento.setId(Integer.parseInt(request.getParameter("id")));
                         lancamento.setIdConta(request.getParameter("id_conta"));
@@ -145,7 +145,12 @@ public class usuarioController extends HttpServlet{
                         lancamento.setValor(request.getParameter("valor"));
                         lancamento.setOperacao(request.getParameter("operacao"));
                         lancamento.setData(request.getParameter("data"));
-                        lancamento.setDescricao(request.getParameter("descricao"));
+                        
+                        if(!request.getParameter("descricao").isEmpty()) {
+                            lancamento.setDescricao(request.getParameter("descricao"));
+                        } else {
+                            lancamento.setDescricao(null);
+                        }
                         
                         if (lancamentodao.gravar(lancamento)) {
                         HttpSession session = request.getSession();

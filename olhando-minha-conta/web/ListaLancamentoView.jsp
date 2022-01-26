@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*,aplicacao.*" %>
 <%@page import="model.categoriasDAO"%>
+<%@page import="java.text.DecimalFormat" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -123,6 +124,7 @@
                                 String link_editar = "lancamentoController?acao=editar&id="+aux.getId();
                                 String link_excluir = "lancamentoController?acao=excluir&id="+aux.getId();                              
                             */
+                            double soma_lancamentos = 0;
                             ArrayList<Conta> ListaConta = (ArrayList<Conta>) request.getAttribute("minhasContas");
                             ArrayList<Lancamento> ListaLancamento = (ArrayList<Lancamento>) request.getAttribute("meusLancamentos");
                             for (int i = 0; i < ListaConta.size(); i++) {
@@ -134,13 +136,14 @@
                                             String link_editar = "lancamentoController?acao=editar&id="+aux.getId();
                                             String link_excluir = "lancamentoController?acao=excluir&id="+aux.getId();
                                             
-                                                        
+                                            soma_lancamentos += Double.parseDouble(aux.getValor());
+                            
                             ArrayList<Categoria> ListaCategoria = new ArrayList();
                             categoriasDAO categoriaDAO = new categoriasDAO();
                             ListaCategoria = categoriaDAO.getList();
                             for (int k = 0; k < ListaCategoria.size(); k++) {
                                 if(ListaCategoria.get(k).getId() == Integer.parseInt(aux.getIdCategoria())){
-                                    Categoria aux_categoria = ListaCategoria.get(k);                                            
+                                    Categoria aux_categoria = ListaCategoria.get(k);                                   
                         %>
                         <tr>
                             <td><%=aux_conta.getNomeConta()%></td>
@@ -154,7 +157,7 @@
                             </td> 
                            
                         </tr>
-                        
+                                                       
                         <div class="modalExcluir" id="<%= aux.getId()%>">
                             <div class="modalContent">
                                 <h2>Realmente deseja excluir?</h2>
@@ -167,9 +170,14 @@
                         
                         <%
                            } } } } } }
+                           DecimalFormat formatter = new DecimalFormat("#.##");
+                           formatter.format(soma_lancamentos);
                         %>
                     </tbody>
                 </table>
+            </div>
+            <div class="container mt-2 " scope="col">
+               Saldo atual: <%= soma_lancamentos %>
             </div>
         </div>
         <%@include file="Scripts_basicos.html" %>

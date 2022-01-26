@@ -94,7 +94,7 @@ public class administradorController extends HttpServlet{
                     
                     Categoria categoriaExistente = categoriaDAO.getDadosDescricao(request.getParameter("descricao"));
 
-                    if(!request.getParameter("descricao").isEmpty() && categoriaExistente == null){
+                    if(!request.getParameter("descricao").isEmpty()){
                         categoria.setId(Integer.parseInt(request.getParameter("id")));
                         categoria.setDescricao(request.getParameter("descricao"));
                         

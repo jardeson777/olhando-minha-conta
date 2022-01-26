@@ -62,12 +62,19 @@
                     <div class="form-group">
                         <label for="Descrição">Descrição</label>
                         <input type="text" class="form-control" name="descricao" value="<%if(aux != null){out.print(aux.getDescricao());} %>" required size="20" maxlength="100" placeholder="Descrição da categoria">
-                    </div>                  
+                    </div>
+                    <button type="button" class="btn btn-secondary">Voltar</button>
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
         </div>
 
         <%@include file="Scripts_basicos.html" %>
+        
+	<script>  
+            $('.btn-secondary').click(() => {
+                window.location.href = "categoriaController?acao=mostrar";
+            });                 
+	</script>         
     </body>
 </html>

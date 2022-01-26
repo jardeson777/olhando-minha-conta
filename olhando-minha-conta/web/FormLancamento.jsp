@@ -106,8 +106,8 @@
                         <label for="Operacao">Operação</label>
                         <select class="form-control" name="operacao">
                             <option value="">Selecione uma operação</option>
-                            <option value="C" <%if("C".equals(aux.getOperacao())){out.print("selected");}%>>Crédito</option>
-                            <option value="D" <%if("D".equals(aux.getOperacao())){out.print("selected");}%>>Débito</option>
+                            <option value="C" >Crédito</option>
+                            <option value="D" >Débito</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -116,7 +116,7 @@
                     </div>
                     <div class="form-group">
                         <label for="Descrição">Descrição</label>
-                        <input type="text" class="form-control" name="descricao" value="<%if(aux == null){out.print("");}else{ out.print(aux.getDescricao());} %>" required size="20" maxlength="100" placeholder="Descrição da categoria">
+                        <input type="text" class="form-control" name="descricao" value="<%if(aux == null){out.print("");}else{ out.print(aux.getDescricao());} %>" size="20" maxlength="100" placeholder="Descrição da categoria">
                     </div> 
                     <button type="button" class="btn btn-secondary">Voltar</button>
                     <button type="submit" class="btn btn-primary">Enviar</button>
