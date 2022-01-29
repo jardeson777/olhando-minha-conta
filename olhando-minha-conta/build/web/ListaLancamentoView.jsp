@@ -124,7 +124,9 @@
                                 String link_editar = "lancamentoController?acao=editar&id="+aux.getId();
                                 String link_excluir = "lancamentoController?acao=excluir&id="+aux.getId();                              
                             */
-                            double soma_lancamentos = 0;
+                            double soma_credito = 0;
+                            double soma_debito = 0;
+                            double saldo = 0;
                             ArrayList<Conta> ListaConta = (ArrayList<Conta>) request.getAttribute("minhasContas");
                             ArrayList<Lancamento> ListaLancamento = (ArrayList<Lancamento>) request.getAttribute("meusLancamentos");
                             for (int i = 0; i < ListaConta.size(); i++) {
@@ -136,7 +138,11 @@
                                             String link_editar = "lancamentoController?acao=editar&id="+aux.getId();
                                             String link_excluir = "lancamentoController?acao=excluir&id="+aux.getId();
                                             
-                                            soma_lancamentos += Double.parseDouble(aux.getValor());
+                                            if(aux.getOperacao().equals("C")){
+                                                soma_credito += Double.parseDouble(aux.getValor());
+                                            } else if(aux.getOperacao().equals("D"))  {
+                                                soma_debito += Double.parseDouble(aux.getValor());
+                                            }           
                             
                             ArrayList<Categoria> ListaCategoria = new ArrayList();
                             categoriasDAO categoriaDAO = new categoriasDAO();
@@ -171,13 +177,19 @@
                         <%
                            } } } } } }
                            DecimalFormat formatter = new DecimalFormat("#.##");
-                           formatter.format(soma_lancamentos);
+                           formatter.format(soma_credito);
+                           formatter.format(soma_debito);
+
+                           saldo = soma_credito - soma_debito;
+                           formatter.format(saldo);
                         %>
                     </tbody>
                 </table>
             </div>
-            <div class="container mt-2 " scope="col">
-               Saldo atual: <%= soma_lancamentos %>
+            <div class="container mt-2">
+               Total Crédito: <%= soma_credito %>
+               Total Débito: <%= soma_debito %>
+               Saldo atual: <%= saldo %>
             </div>
         </div>
         <%@include file="Scripts_basicos.html" %>
