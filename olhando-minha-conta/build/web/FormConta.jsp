@@ -45,7 +45,7 @@
                    Conta aux = (Conta)request.getAttribute("conta");
                 %>            
 
-                <h4><% if(aux == null){out.println("Incluir Conta");} else {out.println("Editar Conta");}%></h4>
+                <h4><% if(!(aux.getId() > 0)){out.println("Incluir Conta");} else {out.println("Editar Conta");}%></h4>
                 <form method="POST" action="usuarioController" >
                     <% 
                         Object erro = session.getAttribute("erro");
@@ -60,7 +60,7 @@
                     
                     <input hidden value="CriarConta" name="action"/>
                     <input type="hidden" class="form-control" name="<%if(aux != null){out.print("id");}%>" value="<%if(aux != null){out.print(aux.getId());} %>">
-                    <input type="hidden" class="form-control" name="id_usuario" value="<%if(dado != null){out.print(dado.getId());} %>" required size="20" maxlength="100" placeholder="Id do Usuário">
+                    <input type="hidden" class="form-control" name="id_usuario" value="<%if(dado != null){out.print(dado.getId());} %>">
                     <div class="form-group">
                         <label for="Nome_da_Conta">Nome da Conta</label>
                         <input type="text" class="form-control"  name="nome_conta" value="<%if(aux == null){out.print("");}else{ out.print(aux.getNomeConta());} %>" required size="20" maxlength="100" placeholder="Nome da conta">
@@ -74,8 +74,8 @@
                         <input type="text" class="form-control"  name="agencia" value="<%if(aux == null){out.print("");}else{ out.print(aux.getAgencia());} %>" required size="6" placeholder="Agencia">
                     </div>
                     <div class="form-group">
-                        <label for="Conta Corrente">Conta Corrente</label>
-                        <input type="text" class="form-control conta_corrente"  name="conta_corrente" value="<%if(aux == null){out.print("");}else{ out.print(aux.getContaCorrente());} %>" required size="6" placeholder="Conta Corrente">
+                        <label for="conta_corrente">Conta Corrente</label>
+                        <input type="text" class="form-control conta_corrente" id="conta_corrente"  name="conta_corrente" value="<%if(aux == null){out.print("");}else{ out.print(aux.getContaCorrente());} %>" required size="6" placeholder="Conta Corrente">
                     </div>   
                     <button type="button" class="btn btn-secondary">Voltar</button>
                     <button type="submit" class="btn btn-primary">Enviar</button>

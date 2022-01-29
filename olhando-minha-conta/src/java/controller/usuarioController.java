@@ -153,26 +153,26 @@ public class usuarioController extends HttpServlet{
                         }
                         
                         if (lancamentodao.gravar(lancamento)) {
-                        HttpSession session = request.getSession();
-                        session.setAttribute("erro", "nao");
-                            
-                        lancamentosDAO lancamentosdao = new lancamentosDAO();
-                        
-                        ArrayList<Conta> minhasContas;
-                        ArrayList<Lancamento> meusLancamentos;
-                        
-                        minhasContas = contasdao.getList();
-                        request.setAttribute("minhasContas", minhasContas);
-                        meusLancamentos = lancamentodao.getList();
-                        request.setAttribute("meusLancamentos", meusLancamentos);
-                        RequestDispatcher mostrar = getServletContext().getRequestDispatcher("/ListaLancamentoView.jsp");
-                        mostrar.forward(request, response);
+                            HttpSession session = request.getSession();
+                            session.setAttribute("erro", "nao");
+
+                            lancamentosDAO lancamentosdao = new lancamentosDAO();
+
+                            ArrayList<Conta> minhasContas;
+                            ArrayList<Lancamento> meusLancamentos;
+
+                            minhasContas = contasdao.getList();
+                            request.setAttribute("minhasContas", minhasContas);
+                            meusLancamentos = lancamentodao.getList();
+                            request.setAttribute("meusLancamentos", meusLancamentos);
+                            RequestDispatcher mostrar = getServletContext().getRequestDispatcher("/ListaLancamentoView.jsp");
+                            mostrar.forward(request, response);
                         } else {
-                        HttpSession session = request.getSession();
-                        session.setAttribute("erro", "sim");
-                            
-                        RequestDispatcher rd = request.getRequestDispatcher("/FormLancamento.jsp");
-                        rd.forward(request, response);
+                            HttpSession session = request.getSession();
+                            session.setAttribute("erro", "sim");
+
+                            RequestDispatcher rd = request.getRequestDispatcher("/FormLancamento.jsp");
+                            rd.forward(request, response);
                         }
 
                     }else {

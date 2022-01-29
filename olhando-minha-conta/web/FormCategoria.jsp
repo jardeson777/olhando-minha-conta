@@ -45,7 +45,7 @@
                    Categoria aux = (Categoria)request.getAttribute("categoria");
                 %>             
 
-                <h4>Incluir Categoria</h4>
+                <h4><%if(aux.getId() > 0){out.print("Editar Categoria");}else{out.print("Incluir Categoria");}%>Incluir Categoria</h4>
                 <form method="POST" action="administradorController" >
                     <% 
                         Object erro = session.getAttribute("erro");

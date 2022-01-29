@@ -44,7 +44,7 @@
                    Administrador aux = (Administrador)request.getAttribute("administrador");
                 %>            
 
-                <h4><% if(aux == null){out.println("Incluir Administrador");} else {out.println("Editar Administrador");}%></h4>
+                <h4><% if(!(aux.getId() > 0)){out.println("Incluir Administrador");} else {out.println("Editar Administrador");}%></h4>
                 <form method="POST" action="administradorController" >
                     <% 
                         Object erro = session.getAttribute("erro");

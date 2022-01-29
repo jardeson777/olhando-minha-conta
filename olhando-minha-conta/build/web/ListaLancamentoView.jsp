@@ -124,9 +124,9 @@
                                 String link_editar = "lancamentoController?acao=editar&id="+aux.getId();
                                 String link_excluir = "lancamentoController?acao=excluir&id="+aux.getId();                              
                             */
-                            double soma_credito = 0;
-                            double soma_debito = 0;
-                            double saldo = 0;
+                            float soma_credito = 0;
+                            float soma_debito = 0;
+                            float saldo = 0;
                             ArrayList<Conta> ListaConta = (ArrayList<Conta>) request.getAttribute("minhasContas");
                             ArrayList<Lancamento> ListaLancamento = (ArrayList<Lancamento>) request.getAttribute("meusLancamentos");
                             for (int i = 0; i < ListaConta.size(); i++) {
@@ -186,11 +186,22 @@
                     </tbody>
                 </table>
             </div>
-            <div class="container mt-2">
-               Total Crédito: <%= soma_credito %>
-               Total Débito: <%= soma_debito %>
-               Saldo atual: <%= saldo %>
-            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Total Crédito</th>
+                        <th scope="col">Total Débito</th>
+                        <th scope="col">Saldo atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="col"><%= soma_credito %></td>
+                        <td scope="col"><%= soma_debito %></td>
+                        <td scope="col"><%= saldo %></td>
+                    </tr>
+                </tbody> 
+            </table>
         </div>
         <%@include file="Scripts_basicos.html" %>
         <script>

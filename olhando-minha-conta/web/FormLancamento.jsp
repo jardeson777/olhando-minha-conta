@@ -47,10 +47,13 @@
             
             <div class="content">
                 <%
-                   Lancamento aux = (Lancamento)request.getAttribute("lancamento");
+                    Lancamento aux = null;
+                    if(request.getAttribute("lancamento") != null){
+                        aux = (Lancamento)request.getAttribute("lancamento");
+                    }
                 %>                  
                 
-                <h4><% if(aux == null){out.println("Incluir Lancamento");} else {out.println("Editar Lancamento");}%></h4>
+                <h4><% if(aux.getId() > 0){out.println("Editar Lancamento");} else {out.println("Incluir Lancamento");}%></h4>
                 <form method="POST" action="usuarioController" >
                     <% 
                         Object erro = session.getAttribute("erro");
@@ -67,7 +70,7 @@
                     <input type="hidden" class="form-control" name="<%if(aux != null){out.print("id");}%>" value="<%if(aux != null){out.print(aux.getId());} %>">                    
                     <div class="form-group">
                         <label for="ID_Conta">Conta</label> 
-                        <select class="form-control" name="id_conta">
+                        <select class="form-control" required name="id_conta">
                             <option value="" selected>Selecione a conta</option>
                             <%
                                 ArrayList<Conta> ListaConta = new ArrayList();
@@ -83,7 +86,7 @@
                     </div>
                     <div class="form-group">
                         <label for="ID_Categoria">Categoria</label>
-                        <select class="form-control" name="id_categoria">
+                        <select class="form-control" required name="id_categoria">
                             <option value="" selected>Selecione a categoria</option>
                             <%
                                 ArrayList<Categoria> categorias = new ArrayList();
@@ -100,11 +103,11 @@
                     </div>
                     <div class="form-group">
                         <label for="Valor">Valor</label>
-                        <input type="text" class="form-control"  name="valor" value="<%if(aux == null){out.print("");}else{ out.print(aux.getValor());} %>" required size="10" placeholder="Valor decimal">
+                        <input type="text" required class="form-control" id="valor" onkeypress="$(this).mask('###0.00', {reverse: true});"  name="valor" value="<%if(aux == null){out.print("");}else{ out.print(aux.getValor());} %>" required size="10" placeholder="Valor decimal">
                     </div>
                     <div class="form-group">
                         <label for="Operacao">Operação</label>
-                        <select class="form-control" name="operacao">
+                        <select class="form-control" required name="operacao">
                             <option value="">Selecione uma operação</option>
                             <option value="C" >Crédito</option>
                             <option value="D" >Débito</option>
@@ -136,7 +139,9 @@
                 
             $('.btn-secondary').click(() => {
                 window.location.href = "lancamentoController?acao=mostrar";
-            });                 
+            });    
+            
+            
 	</script>        
     </body>
 </html>

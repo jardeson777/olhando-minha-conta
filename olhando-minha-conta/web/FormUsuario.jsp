@@ -46,7 +46,7 @@
                    Usuario aux = (Usuario)request.getAttribute("usuario");
                 %>             
 
-                <h4>Incluir usuário</h4>
+                <h4><% if(aux.getId() > 0){out.print("Editar usuário");}else{out.print("Incluir usuário");} %></h4>
                 <form method="POST" action="administradorController" >
                     <% 
                         Object erro = session.getAttribute("erro");
@@ -74,7 +74,7 @@
                     </div>
                     <div class="form-group">
                         <label for="Suspenso">Suspenso</label>
-                        <select class="form-control" name="suspenso">
+                        <select class="form-control" required name="suspenso">
                             <option value="">Status do usuário</option>
                             <option value="S" <%if("S".equals(aux.getSuspenso())){out.print("selected");}%>>Sim</option>
                             <option value="N" <%if("N".equals(aux.getSuspenso())){out.print("selected");}%>>Não</option>
